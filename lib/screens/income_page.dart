@@ -23,8 +23,9 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
   final TextEditingController _locationController = TextEditingController();
   final TextEditingController creditController = TextEditingController();
 
-  final TextEditingController totalCardController = TextEditingController();
+  final TextEditingController totalCreditController = TextEditingController();
   final TextEditingController totalFCoinController = TextEditingController();
+  final TextEditingController totalOthersController = TextEditingController();
 
   final TextEditingController usdController = TextEditingController();
   final TextEditingController sgdController = TextEditingController();
@@ -201,9 +202,9 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
                         child: Column(
                           children: [
                             CardSection(
-                              totalCardController: totalCardController,
+                              totalCreditController: totalCreditController,
                               totalFCoinController: totalFCoinController,
-                              totalOthersController: totalCardController,
+                              totalOthersController: totalOthersController,
                               EshopController: EshopController,
                               VoucherController: VoucherController,
                               ChequeController: ChequeController,

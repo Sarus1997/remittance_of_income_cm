@@ -68,7 +68,7 @@ class _CoinsSectionState extends State<CoinsSection> {
     widget.THB1_qty.addListener(
         () => _calculateResult(1, widget.THB1_qty.text, 1));
     widget.THB050_qty.addListener(
-        () => _calculateResult(0.5, widget.THB050_qty.text, 0.5));
+        () => _calculateResult(0.50, widget.THB050_qty.text, 0.50));
     widget.THB025_qty.addListener(
         () => _calculateResult(0.25, widget.THB025_qty.text, 0.25));
   }
@@ -105,7 +105,7 @@ class _CoinsSectionState extends State<CoinsSection> {
         _buildCoinsRow("5", widget.THB5_qty, results[5] ?? 0),
         _buildCoinsRow("2", widget.THB2_qty, results[2] ?? 0),
         _buildCoinsRow("1", widget.THB1_qty, results[1] ?? 0),
-        _buildCoinsRow("0.5", widget.THB050_qty, results[0.5] ?? 0),
+        _buildCoinsRow("0.50", widget.THB050_qty, results[0.50] ?? 0),
         _buildCoinsRow("0.25", widget.THB025_qty, results[0.25] ?? 0),
         _buildTotalRow(),
       ],
