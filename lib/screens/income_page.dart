@@ -93,6 +93,9 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
   //part 2
   double cashTotal = 0.0;
 
+  // Grand total variable
+  double totalAll = 0.0;
+
   @override
   void initState() {
     super.initState();
@@ -121,6 +124,7 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
   }
 
   void _calculateResult() {
+    // Get numeric values from controllers
     final usdValue = double.tryParse(usdController.text) ?? 0.0;
     final usdRateValue = double.tryParse(usdRateController.text) ?? 0.0;
     final sgdValue = double.tryParse(sgdController.text) ?? 0.0;
@@ -139,16 +143,11 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
     final audRateValue = double.tryParse(audRateController.text) ?? 0.0;
     final eurValue = double.tryParse(eurController.text) ?? 0.0;
     final eurRateValue = double.tryParse(eurRateController.text) ?? 0.0;
-    final totalCurrencyValue = double.tryParse(resultCard.text) ?? 0.0;
-
-    totalCurrency = totalCurrencyValue;
 
     //part 2
     final cashValue = double.tryParse(cashController.text) ?? 0.0;
 
-    //card
-    cashTotal = cashValue;
-
+    // Calculate currency result
     usdResult = usdValue * usdRateValue;
     sgdResult = sgdValue * sgdRateValue;
     twdResult = twdValue * twdRateValue;
@@ -169,6 +168,10 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
         audResult +
         eurResult;
 
+    // Calculate grand total
+    totalAll = totalCurrency + cashValue;
+
+    // Update the state
     setState(() {});
   }
 
@@ -240,7 +243,6 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
                               cnyRateController: cnyRateController,
                               audRateController: audRateController,
                               eurRateController: eurRateController,
-                              totalCurrency: totalCurrency,
                               usdResult: usdResult,
                               sgdResult: sgdResult,
                               twdResult: twdResult,
@@ -250,6 +252,7 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
                               cnyResult: cnyResult,
                               audResult: audResult,
                               eurResult: eurResult,
+                              totalCurrency: totalCurrency,
 
                               //part2
                               cashTotal: cashTotal,
@@ -278,6 +281,22 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
                               THB025_qty: THB025_qty,
                               totalCoinsController: totalCoinsController,
                             ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            const Text(
+                              "รวมทั้งสิ้น/Grand Total(1)+(2)+(3)+(4)+(5)+(6)",
+                              style: TextStyle(fontSize: 12),
+                            ),
+                            _buildTotalRow(),
                           ],
                         ),
                       ),
@@ -316,6 +335,22 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
               ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTotalRow() {
+    return Container(
+      padding: const EdgeInsets.all(4),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.black),
+      ),
+      child: Center(
+        child: Text(
+          ' ${totalAll.toStringAsFixed(2)}',
+          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+          textAlign: TextAlign.center,
         ),
       ),
     );
