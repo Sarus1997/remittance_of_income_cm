@@ -121,7 +121,7 @@ class _CoinsSectionState extends State<CoinsSection> {
       child: const Center(
         child: Text(
           'ธนาบัตรและเหรียญกษาปณ์\nNptes & Coins',
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         ),
       ),
@@ -134,7 +134,6 @@ class _CoinsSectionState extends State<CoinsSection> {
       children: [
         Expanded(
           child: Container(
-            padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
@@ -147,7 +146,6 @@ class _CoinsSectionState extends State<CoinsSection> {
         ),
         Expanded(
           child: Container(
-            padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
@@ -160,7 +158,6 @@ class _CoinsSectionState extends State<CoinsSection> {
         ),
         Expanded(
           child: Container(
-            padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),

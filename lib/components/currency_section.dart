@@ -102,7 +102,7 @@ class CurrencySection extends StatelessWidget {
       child: const Center(
         child: Text(
           'เงินสกุลต่างประเทศ\nForeign Currency',
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         ),
       ),
@@ -120,7 +120,7 @@ class CurrencySection extends StatelessWidget {
             ),
             child: const Text(
               'จำนวน X มูลค่า\nQuantity X Rate',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),
@@ -132,7 +132,7 @@ class CurrencySection extends StatelessWidget {
             ),
             child: const Text(
               'จำนวน\nAmount',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),
@@ -209,13 +209,13 @@ class CurrencySection extends StatelessWidget {
         ),
         Expanded(
           child: Container(
-            padding: const EdgeInsets.all(4),
+            height: 30,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
             child: Text(
               NumberFormat('#,##0.00').format(result),
-              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),
@@ -236,14 +236,14 @@ class CurrencySection extends StatelessWidget {
             ),
             child: const Text(
               '(4)รวม/Total',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),
         ),
         Expanded(
           child: Container(
-            height: 30,
+            height: 28,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
@@ -254,7 +254,7 @@ class CurrencySection extends StatelessWidget {
                 border: InputBorder.none,
                 contentPadding: const EdgeInsets.symmetric(vertical: 12),
               ),
-              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
               enabled: false,
             ),
@@ -270,13 +270,13 @@ class CurrencySection extends StatelessWidget {
       children: [
         Expanded(
           child: Container(
-            padding: const EdgeInsets.all(6),
+            padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
             child: const Text(
               'รายได้รอบ1/Amount (First Collection)',
-              style: TextStyle(fontSize: 10),
+              style: TextStyle(fontSize: 12),
               textAlign: TextAlign.center,
             ),
           ),
@@ -304,12 +304,11 @@ class CurrencySection extends StatelessWidget {
         ),
         Expanded(
           child: Container(
-            padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
             child: SizedBox(
-              height: 18,
+              height: 26,
               child: TextField(
                 controller: cashController,
                 style: const TextStyle(fontSize: 12),

@@ -82,10 +82,10 @@ class _CardSectionState extends State<CardSection> {
       children: [
         _buildTopRow(),
         _buildTotalRow(),
-        const SizedBox(height: 15),
+        const SizedBox(height: 20),
         _buildFCoinRow(),
         _buildTotalFCoinRow(),
-        const SizedBox(height: 15),
+        const SizedBox(height: 20),
         _buildOthersRow(),
         _buildOthers2Row("E-SHOP", widget.EshopController),
         _buildOthers2Row("VOUCHER", widget.VoucherController),
@@ -107,7 +107,7 @@ class _CardSectionState extends State<CardSection> {
       child: const Center(
         child: Text(
           'บัตรเครดิต\nCredit Card',
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         ),
       ),
