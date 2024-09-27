@@ -46,12 +46,19 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
   final TextEditingController audRateController = TextEditingController();
   final TextEditingController eurRateController = TextEditingController();
   final TextEditingController usdTotalController = TextEditingController();
+  final TextEditingController totalCurrencyController = TextEditingController();
 
   //part 2
   final TextEditingController cashController = TextEditingController();
 
   //card
-  final TextEditingController totalCurrencyController = TextEditingController();
+  final TextEditingController resultCard = TextEditingController();
+  final TextEditingController EshopController = TextEditingController();
+  final TextEditingController VoucherController = TextEditingController();
+  final TextEditingController ChequeController = TextEditingController();
+  final TextEditingController PayinController = TextEditingController();
+  final TextEditingController TaxController = TextEditingController();
+  final TextEditingController GiftController = TextEditingController();
 
   //coins
   final TextEditingController totalCoinsController = TextEditingController();
@@ -106,7 +113,7 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
     audRateController.addListener(_calculateResult);
     eurController.addListener(_calculateResult);
     eurRateController.addListener(_calculateResult);
-    totalCurrencyController.addListener(_calculateResult);
+    resultCard.addListener(_calculateResult);
 
     //part 2
     cashController.addListener(_calculateResult);
@@ -131,8 +138,7 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
     final audRateValue = double.tryParse(audRateController.text) ?? 0.0;
     final eurValue = double.tryParse(eurController.text) ?? 0.0;
     final eurRateValue = double.tryParse(eurRateController.text) ?? 0.0;
-    final totalCurrencyValue =
-        double.tryParse(totalCurrencyController.text) ?? 0.0;
+    final totalCurrencyValue = double.tryParse(resultCard.text) ?? 0.0;
 
     totalCurrency = totalCurrencyValue;
 
@@ -188,8 +194,7 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
                   ),
                   const SizedBox(height: 10),
                   Row(
-                    crossAxisAlignment:
-                        CrossAxisAlignment.start, // Align at the top
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
                         flex: 1,
@@ -198,6 +203,14 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
                             CardSection(
                               totalCardController: totalCardController,
                               totalFCoinController: totalFCoinController,
+                              totalOthersController: totalCardController,
+                              EshopController: EshopController,
+                              VoucherController: VoucherController,
+                              ChequeController: ChequeController,
+                              PayinController: PayinController,
+                              TaxController: TaxController,
+                              GiftController: GiftController,
+                              resultCard: resultCard,
                             ),
                           ],
                         ),
@@ -227,7 +240,6 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
                               audRateController: audRateController,
                               eurRateController: eurRateController,
                               totalCurrency: totalCurrency,
-                              totalCurrencyController: totalCurrencyController,
                               usdResult: usdResult,
                               sgdResult: sgdResult,
                               twdResult: twdResult,
@@ -241,6 +253,7 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
                               //part2
                               cashTotal: cashTotal,
                               cashController: cashController,
+                              totalCurrencyController: totalCurrencyController,
                             ),
                           ],
                         ),

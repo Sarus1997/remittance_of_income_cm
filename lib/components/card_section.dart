@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api, non_constant_identifier_names
+// ignore_for_file: library_private_types_in_public_api, non_constant_identifier_names, unused_import
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,6 +14,7 @@ class CardSection extends StatefulWidget {
   final TextEditingController PayinController;
   final TextEditingController TaxController;
   final TextEditingController GiftController;
+  final TextEditingController resultCard;
 
   const CardSection({
     super.key,
@@ -26,6 +27,7 @@ class CardSection extends StatefulWidget {
     required this.PayinController,
     required this.TaxController,
     required this.GiftController,
+    required this.resultCard,
   });
 
   @override
@@ -33,14 +35,6 @@ class CardSection extends StatefulWidget {
 }
 
 class _CardSectionState extends State<CardSection> {
-  @override
-  void dispose() {
-    widget.totalCardController.dispose();
-    widget.totalFCoinController.dispose();
-    widget.totalOthersController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -52,12 +46,12 @@ class _CardSectionState extends State<CardSection> {
         _buildTotalFCoinRow(),
         const SizedBox(height: 15),
         _buildOthersRow(),
-        _buildOthers2Row("E-SHOP", EshopController),
-        _buildOthers2Row("VOUCHER", VoucherController),
-        _buildOthers2Row("CHEQUE", ChequeController),
-        _buildOthers2Row("PAY-IN", PayinController),
-        _buildOthers2Row("TAX", TaxController),
-        _buildOthers2Row("GIFT CERTIFICATE", GiftController),
+        _buildOthers2Row("E-SHOP", widget.EshopController),
+        _buildOthers2Row("VOUCHER", widget.VoucherController),
+        _buildOthers2Row("CHEQUE", widget.ChequeController),
+        _buildOthers2Row("PAY-IN", widget.PayinController),
+        _buildOthers2Row("TAX", widget.TaxController),
+        _buildOthers2Row("GIFT CERTIFICATE", widget.GiftController),
         _buildTotalOthersRow(),
       ],
     );
@@ -85,25 +79,25 @@ class _CardSectionState extends State<CardSection> {
       children: [
         Expanded(
           child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 6),
+            padding: const EdgeInsets.symmetric(vertical: 4),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
             child: const Text(
               '(1)รวม/Total',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),
         ),
         Expanded(
           child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 6),
+            padding: const EdgeInsets.symmetric(vertical: 4),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
             child: SizedBox(
-              height: 20,
+              height: 18,
               child: TextField(
                 controller: widget.totalCardController,
                 style: const TextStyle(fontSize: 12),
@@ -115,7 +109,7 @@ class _CardSectionState extends State<CardSection> {
                 decoration: const InputDecoration(
                   hintStyle: TextStyle(fontSize: 12),
                   border: InputBorder.none,
-                  contentPadding: EdgeInsets.symmetric(vertical: 15),
+                  contentPadding: EdgeInsets.symmetric(vertical: 13),
                 ),
               ),
             ),
@@ -134,7 +128,7 @@ class _CardSectionState extends State<CardSection> {
       child: const Center(
         child: Text(
           'เอฟซีคอยน์\nFCoin',
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         ),
       ),
@@ -153,7 +147,7 @@ class _CardSectionState extends State<CardSection> {
             ),
             child: const Text(
               '(2)รวม/Total',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),
@@ -165,7 +159,7 @@ class _CardSectionState extends State<CardSection> {
               border: Border.all(color: Colors.black),
             ),
             child: SizedBox(
-              height: 20,
+              height: 18,
               child: TextField(
                 controller: widget.totalFCoinController,
                 style: const TextStyle(fontSize: 12),
@@ -177,7 +171,7 @@ class _CardSectionState extends State<CardSection> {
                 decoration: const InputDecoration(
                   hintStyle: TextStyle(fontSize: 12),
                   border: InputBorder.none,
-                  contentPadding: EdgeInsets.symmetric(vertical: 15),
+                  contentPadding: EdgeInsets.symmetric(vertical: 13),
                 ),
               ),
             ),
@@ -196,15 +190,14 @@ class _CardSectionState extends State<CardSection> {
       child: const Center(
         child: Text(
           'Others',
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         ),
       ),
     );
   }
 
-  Widget _buildOthers2Row(
-      String rate, TextEditingController controller, double result) {
+  Widget _buildOthers2Row(String label, TextEditingController controller) {
     return Row(
       children: [
         Expanded(
@@ -215,15 +208,15 @@ class _CardSectionState extends State<CardSection> {
             ),
             child: Center(
               child: Text(
-                rate,
-                style: const TextStyle(fontWeight: FontWeight.bold),
+                label,
+                style: const TextStyle(fontSize: 12),
               ),
             ),
           ),
         ),
         Expanded(
           child: Container(
-            height: 30,
+            height: 27,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
@@ -236,7 +229,7 @@ class _CardSectionState extends State<CardSection> {
                 decoration: const InputDecoration(
                   hintText: '0',
                   border: InputBorder.none,
-                  contentPadding: EdgeInsets.symmetric(vertical: 14),
+                  contentPadding: EdgeInsets.symmetric(vertical: 13),
                 ),
               ),
             ),
@@ -257,8 +250,8 @@ class _CardSectionState extends State<CardSection> {
               border: Border.all(color: Colors.black),
             ),
             child: const Text(
-              '(3s)รวม/Total',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              '(3)รวม/Total',
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),
@@ -270,7 +263,7 @@ class _CardSectionState extends State<CardSection> {
               border: Border.all(color: Colors.black),
             ),
             child: SizedBox(
-              height: 20,
+              height: 18,
               child: TextField(
                 controller: widget.totalOthersController,
                 style: const TextStyle(fontSize: 12),
@@ -281,9 +274,8 @@ class _CardSectionState extends State<CardSection> {
                 ],
                 decoration: const InputDecoration(
                   hintStyle: TextStyle(fontSize: 12),
-                  NumberFormat('#,##0.00').format(result),
                   border: InputBorder.none,
-                  contentPadding: EdgeInsets.symmetric(vertical: 15),
+                  contentPadding: EdgeInsets.symmetric(vertical: 13),
                 ),
               ),
             ),
