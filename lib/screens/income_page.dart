@@ -226,24 +226,14 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
         THB025;
 
     // Calculate grand total
-    total = totalCredit +
-        totalFCoin +
-        totalOthers +
-        totalCurrency +
-        cashValue +
-        totalCoins;
-
-    // Update the state
-    setState(() {});
-  }
-
-  @override
-  void dispose() {
-    _dateController.dispose();
-    _staffIdController.dispose();
-    _nameController.dispose();
-    // Dispose other controllers here
-    super.dispose();
+    setState(() {
+      total = totalCredit +
+          totalFCoin +
+          totalOthers +
+          totalCurrency +
+          cashValue +
+          totalCoins;
+    });
   }
 
   @override

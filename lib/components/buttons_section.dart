@@ -2,7 +2,9 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
 import 'dart:convert';
 import 'package:pdf/widgets.dart' as pw;
@@ -35,6 +37,18 @@ class ButtonsSection extends StatelessWidget {
   final TextEditingController eurRateController;
   final TextEditingController usdTotalController;
   final double total;
+
+  // Card controllers
+  final TextEditingController totalCreditController = TextEditingController();
+  final TextEditingController totalFCoinController = TextEditingController();
+  final TextEditingController totalOthersController = TextEditingController();
+  final TextEditingController resultCard = TextEditingController();
+  final TextEditingController EshopController = TextEditingController();
+  final TextEditingController VoucherController = TextEditingController();
+  final TextEditingController ChequeController = TextEditingController();
+  final TextEditingController PayinController = TextEditingController();
+  final TextEditingController TaxController = TextEditingController();
+  final TextEditingController GiftController = TextEditingController();
 
   //coins
   final TextEditingController totalCoinsController = TextEditingController();
@@ -135,13 +149,13 @@ class ButtonsSection extends StatelessWidget {
       "shopname": nameController.text,
       "deptcode": deptController.text,
       "Credit_tot": creditController.text,
-      "Fccoin_tot": "",
-      "Eshop_tot": "",
-      "Voucher_tot": "",
-      "Cheque_tot": "",
-      "Payin_tot": "",
-      "Tax_tot": "",
-      "Gift_tot": "",
+      "Fccoin_tot": totalFCoinController.text,
+      "Eshop_tot": EshopController.text,
+      "Voucher_tot": VoucherController.text,
+      "Cheque_tot": ChequeController.text,
+      "Payin_tot": PayinController.text,
+      "Tax_tot": TaxController.text,
+      "Gift_tot": GiftController.text,
       "Coupon20_qty": "",
       "Coupon10_qty": "",
       "Coupon5_qty": "",
@@ -205,22 +219,93 @@ class ButtonsSection extends StatelessWidget {
   Future<void> _generateAndPrintPdf() async {
     final pdf = pw.Document();
 
+    // Load the custom font
+    final fontData = await rootBundle.load('assets/font/pgvim.ttf');
+    final customFont = pw.Font.ttf(fontData);
+
     try {
+      double usdQuantity = _parseDouble(usdController.text);
+      double usdRate = _parseDouble(usdRateController.text);
+      double sgdQuantity = _parseDouble(sgdController.text);
+      double sgdRate = _parseDouble(sgdRateController.text);
+      double usdTotal = usdQuantity * usdRate;
+      double sgdTotal = sgdQuantity * sgdRate;
+
       pdf.addPage(
         pw.Page(
+          pageFormat: PdfPageFormat.a4.copyWith(
+            marginLeft: 25,
+            marginRight: 10,
+            marginTop: 40,
+            marginBottom: 10,
+          ),
           build: (pw.Context context) {
             return pw.Column(
               crossAxisAlignment: pw.CrossAxisAlignment.start,
               children: [
-                pw.Text('Income Report',
-                    style: const pw.TextStyle(fontSize: 24)),
-                pw.SizedBox(height: 16),
-                pw.Text('Date: ${dateController.text}'),
-                pw.Text('Staff ID: ${staffIdController.text}'),
-                pw.Text('Name: ${nameController.text}'),
-                pw.Text('Dept: ${deptController.text}'),
-                pw.Text('Location: ${locationController.text}'),
-                pw.SizedBox(height: 16),
+                pw.Row(
+                  mainAxisAlignment:
+                      pw.MainAxisAlignment.spaceBetween, // Align left-right
+                  children: [
+                    pw.Expanded(
+                      child: pw.Text(
+                        'ใบนำส่งรายได้/Income Report Carnival Magic',
+                        style: pw.TextStyle(fontSize: 14, font: customFont),
+                      ),
+                    ),
+                    pw.Expanded(
+                      child: pw.Text(
+                        'รูป',
+                        style: pw.TextStyle(fontSize: 14, font: customFont),
+                        textAlign: pw.TextAlign.right, // Right-align text
+                      ),
+                    ),
+                  ],
+                ),
+                pw.SizedBox(height: 20),
+                pw.Text(
+                  'Date: ${dateController.text}',
+                  style: pw.TextStyle(font: customFont),
+                ),
+                pw.SizedBox(height: 10),
+                pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                  children: [
+                    pw.Expanded(
+                      child: pw.Text(
+                        'Name: ${nameController.text}',
+                        style: pw.TextStyle(font: customFont),
+                      ),
+                    ),
+                    pw.Expanded(
+                      child: pw.Text(
+                        'Staff ID: ${staffIdController.text}',
+                        style: pw.TextStyle(font: customFont),
+                      ),
+                    ),
+                  ],
+                ),
+                pw.SizedBox(height: 10),
+                pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                  children: [
+                    pw.Expanded(
+                      child: pw.Text(
+                        'Dept: ${deptController.text}',
+                        style: pw.TextStyle(font: customFont),
+                      ),
+                    ),
+                    pw.Expanded(
+                      child: pw.Text(
+                        'Location: ${locationController.text}',
+                        style: pw.TextStyle(font: customFont),
+                      ),
+                    ),
+                  ],
+                ),
+                pw.SizedBox(height: 10),
+
+                //ตาราง 1
                 pw.Row(
                   children: [
                     pw.Expanded(
@@ -228,66 +313,234 @@ class ButtonsSection extends StatelessWidget {
                       child: pw.Column(
                         crossAxisAlignment: pw.CrossAxisAlignment.start,
                         children: [
-                          pw.Text(
-                            'USD: ${usdController.text} x ${usdRateController.text} = ${double.parse(usdController.text) * double.parse(usdRateController.text)}',
+                          pw.Container(
+                            height: 20,
+                            width: 200,
+                            decoration: pw.BoxDecoration(
+                              border: pw.Border.all(color: PdfColors.black),
+                            ),
+                            child: pw.Text(
+                              'บัตรเครดิต/Credit Card',
+                              style:
+                                  pw.TextStyle(fontSize: 12, font: customFont),
+                            ),
                           ),
-                          pw.Text(
-                            'SGD: ${sgdController.text} x ${sgdRateController.text} = ${double.parse(sgdController.text) * double.parse(sgdRateController.text)}',
+                          pw.Row(
+                            children: [
+                              pw.Expanded(
+                                child: pw.Container(
+                                  decoration: pw.BoxDecoration(
+                                    border:
+                                        pw.Border.all(color: PdfColors.black),
+                                  ),
+                                  child: pw.Text(
+                                    'USD   ${usdController.text} x ${usdRateController.text}',
+                                    style: const pw.TextStyle(fontSize: 12),
+                                  ),
+                                ),
+                              ),
+                              pw.Expanded(
+                                child: pw.Container(
+                                  decoration: pw.BoxDecoration(
+                                    border:
+                                        pw.Border.all(color: PdfColors.black),
+                                  ),
+                                  child: pw.Text(
+                                    '  ${usdTotal.toString()}',
+                                    style: const pw.TextStyle(fontSize: 12),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                          pw.SizedBox(height: 16),
-                          pw.Text('Total: $total'),
                         ],
                       ),
                     ),
                     pw.SizedBox(width: 10),
+                    //ตาราง 2
                     pw.Expanded(
                       flex: 1,
                       child: pw.Column(
                         crossAxisAlignment: pw.CrossAxisAlignment.start,
                         children: [
-                          pw.Text(
-                            'USD: ${usdController.text} x ${usdRateController.text} = ${double.parse(usdController.text) * double.parse(usdRateController.text)}',
+                          pw.Container(
+                            height: 20,
+                            width: 200,
+                            decoration: pw.BoxDecoration(
+                              border: pw.Border.all(color: PdfColors.black),
+                            ),
+                            child: pw.Text(
+                              'บัตรเครดิต/Credit Card',
+                              style:
+                                  pw.TextStyle(fontSize: 12, font: customFont),
+                            ),
                           ),
-                          pw.Text(
-                            'SGD: ${sgdController.text} x ${sgdRateController.text} = ${double.parse(sgdController.text) * double.parse(sgdRateController.text)}',
+                          pw.Row(
+                            children: [
+                              pw.Expanded(
+                                child: pw.Container(
+                                  decoration: pw.BoxDecoration(
+                                    border:
+                                        pw.Border.all(color: PdfColors.black),
+                                  ),
+                                  child: pw.Text(
+                                    '  USD   ${usdController.text} x ${usdRateController.text}',
+                                    style: const pw.TextStyle(fontSize: 12),
+                                  ),
+                                ),
+                              ),
+                              pw.Expanded(
+                                child: pw.Container(
+                                  decoration: pw.BoxDecoration(
+                                    border:
+                                        pw.Border.all(color: PdfColors.black),
+                                  ),
+                                  child: pw.Text(
+                                    '  ${usdTotal.toString()}',
+                                    style: const pw.TextStyle(fontSize: 12),
+                                  ),
+                                ),
+                              ),
+                              pw.Expanded(
+                                child: pw.Container(
+                                  decoration: pw.BoxDecoration(
+                                    border:
+                                        pw.Border.all(color: PdfColors.black),
+                                  ),
+                                  child: pw.Text(
+                                    '  USD   ${usdController.text} x ${usdRateController.text}',
+                                    style: const pw.TextStyle(fontSize: 12),
+                                  ),
+                                ),
+                              ),
+                              pw.Expanded(
+                                child: pw.Container(
+                                  decoration: pw.BoxDecoration(
+                                    border:
+                                        pw.Border.all(color: PdfColors.black),
+                                  ),
+                                  child: pw.Text(
+                                    '  ${usdTotal.toString()}',
+                                    style: const pw.TextStyle(fontSize: 12),
+                                  ),
+                                ),
+                              ),
+                              pw.Expanded(
+                                child: pw.Container(
+                                  decoration: pw.BoxDecoration(
+                                    border:
+                                        pw.Border.all(color: PdfColors.black),
+                                  ),
+                                  child: pw.Text(
+                                    '  USD   ${usdController.text} x ${usdRateController.text}',
+                                    style: const pw.TextStyle(fontSize: 12),
+                                  ),
+                                ),
+                              ),
+                              pw.Expanded(
+                                child: pw.Container(
+                                  decoration: pw.BoxDecoration(
+                                    border:
+                                        pw.Border.all(color: PdfColors.black),
+                                  ),
+                                  child: pw.Text(
+                                    '  ${usdTotal.toString()}',
+                                    style: const pw.TextStyle(fontSize: 12),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                          pw.SizedBox(height: 16),
-                          pw.Text('Total: $total'),
                         ],
                       ),
                     ),
-                    pw.SizedBox(width: 10),
+                    //ตาราง 3
                     pw.Expanded(
                       flex: 1,
                       child: pw.Column(
                         crossAxisAlignment: pw.CrossAxisAlignment.start,
                         children: [
-                          pw.Text(
-                            'USD: ${usdController.text} x ${usdRateController.text} = ${double.parse(usdController.text) * double.parse(usdRateController.text)}',
+                          pw.Container(
+                            height: 20,
+                            width: 200,
+                            decoration: pw.BoxDecoration(
+                              border: pw.Border.all(color: PdfColors.black),
+                            ),
+                            child: pw.Text(
+                              'บัตรเครดิต/Credit Card',
+                              style:
+                                  pw.TextStyle(fontSize: 12, font: customFont),
+                            ),
                           ),
-                          pw.Text(
-                            'SGD: ${sgdController.text} x ${sgdRateController.text} = ${double.parse(sgdController.text) * double.parse(sgdRateController.text)}',
+                          pw.Row(
+                            children: [
+                              pw.Expanded(
+                                child: pw.Container(
+                                  decoration: pw.BoxDecoration(
+                                    border:
+                                        pw.Border.all(color: PdfColors.black),
+                                  ),
+                                  child: pw.Text(
+                                    'USD',
+                                    style: const pw.TextStyle(fontSize: 12),
+                                  ),
+                                ),
+                              ),
+                              pw.Expanded(
+                                child: pw.Container(
+                                  decoration: pw.BoxDecoration(
+                                    border:
+                                        pw.Border.all(color: PdfColors.black),
+                                  ),
+                                  child: pw.Text(
+                                    '${usdController.text} x ${usdRateController.text} = $usdTotal',
+                                    style: const pw.TextStyle(fontSize: 12),
+                                  ),
+                                ),
+                              ),
+                              pw.Expanded(
+                                child: pw.Container(
+                                  decoration: pw.BoxDecoration(
+                                    border:
+                                        pw.Border.all(color: PdfColors.black),
+                                  ),
+                                  child: pw.Text(
+                                    '${usdController.text} x ${usdRateController.text} = $usdTotal',
+                                    style: const pw.TextStyle(fontSize: 12),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                          pw.SizedBox(height: 16),
-                          pw.Text('Total: $total'),
                         ],
                       ),
                     ),
-                    pw.Text('creditController: ${creditController.text}'),
                   ],
                 ),
+                pw.SizedBox(height: 16),
+                pw.Text('Total: ${(usdTotal + sgdTotal)}',
+                    style: pw.TextStyle(font: customFont)),
               ],
             );
           },
         ),
       );
 
+      // Print the PDF
       await Printing.layoutPdf(
           onLayout: (PdfPageFormat format) async => pdf.save());
     } catch (e) {
       if (kDebugMode) {
         print('Error generating PDF: $e');
       }
+    }
+  }
+
+  double _parseDouble(String value) {
+    try {
+      return double.parse(value);
+    } catch (e) {
+      return 0.0; // Return a default value if parsing fails
     }
   }
 }
