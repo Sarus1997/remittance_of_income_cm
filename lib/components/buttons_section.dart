@@ -223,6 +223,60 @@ class ButtonsSection extends StatelessWidget {
     final fontData = await rootBundle.load('assets/font/pgvim.ttf');
     final customFont = pw.Font.ttf(fontData);
 
+    // Helper function to build the credit card table
+    pw.Widget buildCreditCardTable({
+      required String label,
+      required String amountText,
+      required String total,
+    }) {
+      return pw.Expanded(
+        child: pw.Column(
+          crossAxisAlignment: pw.CrossAxisAlignment.start,
+          children: [
+            pw.Container(
+              height: 20,
+              width: 200,
+              decoration: pw.BoxDecoration(
+                border: pw.Border.all(color: PdfColors.black),
+              ),
+              child: pw.Text(
+                label,
+                style: pw.TextStyle(fontSize: 12, font: customFont),
+              ),
+            ),
+            pw.Row(
+              children: [
+                // Amount text (left side)
+                pw.Expanded(
+                  child: pw.Container(
+                    decoration: pw.BoxDecoration(
+                      border: pw.Border.all(color: PdfColors.black),
+                    ),
+                    child: pw.Text(
+                      amountText,
+                      style: const pw.TextStyle(fontSize: 12),
+                    ),
+                  ),
+                ),
+                // Total (right side)
+                pw.Expanded(
+                  child: pw.Container(
+                    decoration: pw.BoxDecoration(
+                      border: pw.Border.all(color: PdfColors.black),
+                    ),
+                    child: pw.Text(
+                      total,
+                      style: const pw.TextStyle(fontSize: 12),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+    }
+
     try {
       double usdQuantity = _parseDouble(usdController.text);
       double usdRate = _parseDouble(usdRateController.text);
@@ -243,283 +297,94 @@ class ButtonsSection extends StatelessWidget {
             return pw.Column(
               crossAxisAlignment: pw.CrossAxisAlignment.start,
               children: [
+                // Header
                 pw.Row(
-                  mainAxisAlignment:
-                      pw.MainAxisAlignment.spaceBetween, // Align left-right
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                   children: [
-                    pw.Expanded(
-                      child: pw.Text(
-                        'ใบนำส่งรายได้/Income Report Carnival Magic',
-                        style: pw.TextStyle(fontSize: 14, font: customFont),
-                      ),
+                    pw.Text(
+                      'ใบนำส่งรายได้/Income Report Carnival Magic',
+                      style: pw.TextStyle(fontSize: 14, font: customFont),
                     ),
-                    pw.Expanded(
-                      child: pw.Text(
-                        'รูป',
-                        style: pw.TextStyle(fontSize: 14, font: customFont),
-                        textAlign: pw.TextAlign.right, // Right-align text
-                      ),
+                    pw.Text(
+                      'รูป',
+                      style: pw.TextStyle(fontSize: 14, font: customFont),
+                      textAlign: pw.TextAlign.right,
                     ),
                   ],
                 ),
                 pw.SizedBox(height: 20),
+                // Date
                 pw.Text(
                   'Date: ${dateController.text}',
                   style: pw.TextStyle(font: customFont),
                 ),
                 pw.SizedBox(height: 10),
+                // Name and Staff ID
                 pw.Row(
                   mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                   children: [
-                    pw.Expanded(
-                      child: pw.Text(
-                        'Name: ${nameController.text}',
-                        style: pw.TextStyle(font: customFont),
-                      ),
+                    pw.Text(
+                      'Name: ${nameController.text}',
+                      style: pw.TextStyle(font: customFont),
                     ),
-                    pw.Expanded(
-                      child: pw.Text(
-                        'Staff ID: ${staffIdController.text}',
-                        style: pw.TextStyle(font: customFont),
-                      ),
+                    pw.Text(
+                      'Staff ID: ${staffIdController.text}',
+                      style: pw.TextStyle(font: customFont),
                     ),
                   ],
                 ),
                 pw.SizedBox(height: 10),
+                // Dept and Location
                 pw.Row(
                   mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                   children: [
-                    pw.Expanded(
-                      child: pw.Text(
-                        'Dept: ${deptController.text}',
-                        style: pw.TextStyle(font: customFont),
-                      ),
+                    pw.Text(
+                      'Dept: ${deptController.text}',
+                      style: pw.TextStyle(font: customFont),
                     ),
-                    pw.Expanded(
-                      child: pw.Text(
-                        'Location: ${locationController.text}',
-                        style: pw.TextStyle(font: customFont),
-                      ),
+                    pw.Text(
+                      'Location: ${locationController.text}',
+                      style: pw.TextStyle(font: customFont),
                     ),
                   ],
                 ),
                 pw.SizedBox(height: 10),
 
-                //ตาราง 1
+                // Credit Card Table Section
                 pw.Row(
                   children: [
-                    pw.Expanded(
-                      flex: 1,
-                      child: pw.Column(
-                        crossAxisAlignment: pw.CrossAxisAlignment.start,
-                        children: [
-                          pw.Container(
-                            height: 20,
-                            width: 200,
-                            decoration: pw.BoxDecoration(
-                              border: pw.Border.all(color: PdfColors.black),
-                            ),
-                            child: pw.Text(
-                              'บัตรเครดิต/Credit Card',
-                              style:
-                                  pw.TextStyle(fontSize: 12, font: customFont),
-                            ),
-                          ),
-                          pw.Row(
-                            children: [
-                              pw.Expanded(
-                                child: pw.Container(
-                                  decoration: pw.BoxDecoration(
-                                    border:
-                                        pw.Border.all(color: PdfColors.black),
-                                  ),
-                                  child: pw.Text(
-                                    'USD   ${usdController.text} x ${usdRateController.text}',
-                                    style: const pw.TextStyle(fontSize: 12),
-                                  ),
-                                ),
-                              ),
-                              pw.Expanded(
-                                child: pw.Container(
-                                  decoration: pw.BoxDecoration(
-                                    border:
-                                        pw.Border.all(color: PdfColors.black),
-                                  ),
-                                  child: pw.Text(
-                                    '  ${usdTotal.toString()}',
-                                    style: const pw.TextStyle(fontSize: 12),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                    // Table 1: Credit Card
+                    buildCreditCardTable(
+                      label: 'บัตรเครดิต/Credit Card',
+                      amountText:
+                          'USD   ${usdController.text} x ${usdRateController.text}',
+                      total: usdTotal.toString(),
                     ),
                     pw.SizedBox(width: 10),
-                    //ตาราง 2
-                    pw.Expanded(
-                      flex: 1,
-                      child: pw.Column(
-                        crossAxisAlignment: pw.CrossAxisAlignment.start,
-                        children: [
-                          pw.Container(
-                            height: 20,
-                            width: 200,
-                            decoration: pw.BoxDecoration(
-                              border: pw.Border.all(color: PdfColors.black),
-                            ),
-                            child: pw.Text(
-                              'บัตรเครดิต/Credit Card',
-                              style:
-                                  pw.TextStyle(fontSize: 12, font: customFont),
-                            ),
-                          ),
-                          pw.Row(
-                            children: [
-                              pw.Expanded(
-                                child: pw.Container(
-                                  decoration: pw.BoxDecoration(
-                                    border:
-                                        pw.Border.all(color: PdfColors.black),
-                                  ),
-                                  child: pw.Text(
-                                    '  USD   ${usdController.text} x ${usdRateController.text}',
-                                    style: const pw.TextStyle(fontSize: 12),
-                                  ),
-                                ),
-                              ),
-                              pw.Expanded(
-                                child: pw.Container(
-                                  decoration: pw.BoxDecoration(
-                                    border:
-                                        pw.Border.all(color: PdfColors.black),
-                                  ),
-                                  child: pw.Text(
-                                    '  ${usdTotal.toString()}',
-                                    style: const pw.TextStyle(fontSize: 12),
-                                  ),
-                                ),
-                              ),
-                              pw.Expanded(
-                                child: pw.Container(
-                                  decoration: pw.BoxDecoration(
-                                    border:
-                                        pw.Border.all(color: PdfColors.black),
-                                  ),
-                                  child: pw.Text(
-                                    '  USD   ${usdController.text} x ${usdRateController.text}',
-                                    style: const pw.TextStyle(fontSize: 12),
-                                  ),
-                                ),
-                              ),
-                              pw.Expanded(
-                                child: pw.Container(
-                                  decoration: pw.BoxDecoration(
-                                    border:
-                                        pw.Border.all(color: PdfColors.black),
-                                  ),
-                                  child: pw.Text(
-                                    '  ${usdTotal.toString()}',
-                                    style: const pw.TextStyle(fontSize: 12),
-                                  ),
-                                ),
-                              ),
-                              pw.Expanded(
-                                child: pw.Container(
-                                  decoration: pw.BoxDecoration(
-                                    border:
-                                        pw.Border.all(color: PdfColors.black),
-                                  ),
-                                  child: pw.Text(
-                                    '  USD   ${usdController.text} x ${usdRateController.text}',
-                                    style: const pw.TextStyle(fontSize: 12),
-                                  ),
-                                ),
-                              ),
-                              pw.Expanded(
-                                child: pw.Container(
-                                  decoration: pw.BoxDecoration(
-                                    border:
-                                        pw.Border.all(color: PdfColors.black),
-                                  ),
-                                  child: pw.Text(
-                                    '  ${usdTotal.toString()}',
-                                    style: const pw.TextStyle(fontSize: 12),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                    // Table 2: Duplicate table (if needed)
+                    buildCreditCardTable(
+                      label: 'บัตรเครดิต/Credit Card',
+                      amountText:
+                          'USD   ${usdController.text} x ${usdRateController.text}',
+                      total: usdTotal.toString(),
                     ),
-                    //ตาราง 3
-                    pw.Expanded(
-                      flex: 1,
-                      child: pw.Column(
-                        crossAxisAlignment: pw.CrossAxisAlignment.start,
-                        children: [
-                          pw.Container(
-                            height: 20,
-                            width: 200,
-                            decoration: pw.BoxDecoration(
-                              border: pw.Border.all(color: PdfColors.black),
-                            ),
-                            child: pw.Text(
-                              'บัตรเครดิต/Credit Card',
-                              style:
-                                  pw.TextStyle(fontSize: 12, font: customFont),
-                            ),
-                          ),
-                          pw.Row(
-                            children: [
-                              pw.Expanded(
-                                child: pw.Container(
-                                  decoration: pw.BoxDecoration(
-                                    border:
-                                        pw.Border.all(color: PdfColors.black),
-                                  ),
-                                  child: pw.Text(
-                                    'USD',
-                                    style: const pw.TextStyle(fontSize: 12),
-                                  ),
-                                ),
-                              ),
-                              pw.Expanded(
-                                child: pw.Container(
-                                  decoration: pw.BoxDecoration(
-                                    border:
-                                        pw.Border.all(color: PdfColors.black),
-                                  ),
-                                  child: pw.Text(
-                                    '${usdController.text} x ${usdRateController.text} = $usdTotal',
-                                    style: const pw.TextStyle(fontSize: 12),
-                                  ),
-                                ),
-                              ),
-                              pw.Expanded(
-                                child: pw.Container(
-                                  decoration: pw.BoxDecoration(
-                                    border:
-                                        pw.Border.all(color: PdfColors.black),
-                                  ),
-                                  child: pw.Text(
-                                    '${usdController.text} x ${usdRateController.text} = $usdTotal',
-                                    style: const pw.TextStyle(fontSize: 12),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                    pw.SizedBox(width: 10),
+                    // Table 3: Another duplicate table (if needed)
+                    buildCreditCardTable(
+                      label: 'บัตรเครดิต/Credit Card',
+                      amountText:
+                          'USD   ${usdController.text} x ${usdRateController.text}',
+                      total: usdTotal.toString(),
                     ),
                   ],
                 ),
+
                 pw.SizedBox(height: 16),
-                pw.Text('Total: ${(usdTotal + sgdTotal)}',
-                    style: pw.TextStyle(font: customFont)),
+                // Total
+                pw.Text(
+                  'Total: ${(usdTotal + sgdTotal)}',
+                  style: pw.TextStyle(font: customFont),
+                ),
               ],
             );
           },
