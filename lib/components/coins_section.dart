@@ -81,8 +81,9 @@ class _CoinsSectionState extends State<CoinsSection> {
   void _calculateResult(double rate, String quantity, double denomination) {
     setState(() {
       results[denomination] = rate * (double.tryParse(quantity) ?? 0);
-      double total = _calculateTotal();
-      widget.totalCoinsController.text = NumberFormat('#,##0.00').format(total);
+      double totalCoins = _calculateTotal();
+      widget.totalCoinsController.text =
+          NumberFormat('#,##0.00').format(totalCoins);
     });
   }
 
@@ -228,7 +229,7 @@ class _CoinsSectionState extends State<CoinsSection> {
   }
 
   Widget _buildTotalRow() {
-    double total = _calculateTotal();
+    double totalCoins = _calculateTotal();
 
     return Row(
       children: [
@@ -253,7 +254,7 @@ class _CoinsSectionState extends State<CoinsSection> {
             ),
             child: Center(
               child: Text(
-                NumberFormat('#,##0.00').format(total),
+                NumberFormat('#,##0.00').format(totalCoins),
                 style:
                     const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               ),

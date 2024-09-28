@@ -83,25 +83,40 @@ class ButtonsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        ElevatedButton(
-          onPressed: () async {
-            if (kDebugMode) {
-              print('Save button pressed');
-            }
-            await _saveData();
-          },
-          child: const Text('บันทึก/Save'),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+              textStyle: const TextStyle(fontSize: 16),
+            ),
+            onPressed: () async {
+              if (kDebugMode) {
+                print('Save button pressed');
+              }
+              await _saveData();
+            },
+            child: const Text('บันทึก/Save'),
+          ),
         ),
-        ElevatedButton(
-          onPressed: () async {
-            if (kDebugMode) {
-              print('Print button pressed');
-            }
-            await _generateAndPrintPdf();
-          },
-          child: const Text('พิมพ์/Print'),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+              textStyle: const TextStyle(fontSize: 16),
+            ),
+            onPressed: () async {
+              if (kDebugMode) {
+                print('Print button pressed');
+              }
+              await _generateAndPrintPdf();
+            },
+            child: const Text('พิมพ์/Print'),
+          ),
         ),
       ],
     );

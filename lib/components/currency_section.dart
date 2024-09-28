@@ -249,7 +249,7 @@ class CurrencySection extends StatelessWidget {
             child: TextField(
               controller: totalCurrencyController,
               decoration: InputDecoration(
-                hintText: ' ${NumberFormat('#,##0.00').format(total)}',
+                hintText: NumberFormat('#,##0.00').format(total),
                 border: InputBorder.none,
                 contentPadding: const EdgeInsets.symmetric(vertical: 12),
               ),

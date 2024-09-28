@@ -214,7 +214,7 @@ class _CardSectionState extends State<CardSection> {
                 decoration: const InputDecoration(
                   hintStyle: TextStyle(fontSize: 12),
                   border: InputBorder.none,
-                  contentPadding: EdgeInsets.symmetric(vertical: 13),
+                  contentPadding: EdgeInsets.symmetric(vertical: 15),
                 ),
               ),
             ),
@@ -274,7 +274,7 @@ class _CardSectionState extends State<CardSection> {
                 decoration: const InputDecoration(
                   hintText: '0',
                   border: InputBorder.none,
-                  contentPadding: EdgeInsets.symmetric(vertical: 13),
+                  contentPadding: EdgeInsets.symmetric(vertical: 12),
                 ),
               ),
             ),
@@ -321,8 +321,9 @@ class _CardSectionState extends State<CardSection> {
                 decoration: const InputDecoration(
                   hintStyle: TextStyle(fontSize: 12),
                   border: InputBorder.none,
-                  contentPadding: EdgeInsets.symmetric(vertical: 13),
+                  contentPadding: EdgeInsets.symmetric(vertical: 15),
                 ),
+                enabled: false,
               ),
             ),
           ),

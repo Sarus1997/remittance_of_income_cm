@@ -7,6 +7,7 @@ import 'package:remittance_of_income_cm/components/coins_section.dart';
 import 'package:remittance_of_income_cm/components/currency_section.dart';
 import 'package:remittance_of_income_cm/components/form_section.dart';
 import 'package:remittance_of_income_cm/components/header_section.dart';
+import 'package:intl/intl.dart';
 
 class IncomeReportPage extends StatefulWidget {
   const IncomeReportPage({super.key});
@@ -16,16 +17,14 @@ class IncomeReportPage extends StatefulWidget {
 }
 
 class _IncomeReportPageState extends State<IncomeReportPage> {
-  final TextEditingController _dateController = TextEditingController();
+  // TextEditingControllers for various inputs
+  final TextEditingController _dateController =
+      TextEditingController(text: 'เลือกวันที่');
   final TextEditingController _staffIdController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _deptController = TextEditingController();
   final TextEditingController _locationController = TextEditingController();
   final TextEditingController creditController = TextEditingController();
-
-  final TextEditingController totalCreditController = TextEditingController();
-  final TextEditingController totalFCoinController = TextEditingController();
-  final TextEditingController totalOthersController = TextEditingController();
 
   final TextEditingController usdController = TextEditingController();
   final TextEditingController sgdController = TextEditingController();
@@ -49,10 +48,13 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
   final TextEditingController usdTotalController = TextEditingController();
   final TextEditingController totalCurrencyController = TextEditingController();
 
-  //part 2
+  // Part 2 controllers
   final TextEditingController cashController = TextEditingController();
 
-  //card
+  // Card controllers
+  final TextEditingController totalCreditController = TextEditingController();
+  final TextEditingController totalFCoinController = TextEditingController();
+  final TextEditingController totalOthersController = TextEditingController();
   final TextEditingController resultCard = TextEditingController();
   final TextEditingController EshopController = TextEditingController();
   final TextEditingController VoucherController = TextEditingController();
@@ -61,7 +63,7 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
   final TextEditingController TaxController = TextEditingController();
   final TextEditingController GiftController = TextEditingController();
 
-  //coins
+  //coins controllers
   final TextEditingController totalCoinsController = TextEditingController();
   final TextEditingController THB1000_qty = TextEditingController();
   final TextEditingController THB500_qty = TextEditingController();
@@ -93,8 +95,11 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
   //part 2
   double cashTotal = 0.0;
 
+  //coins
+  double totalCoins = 0.0;
+
   // Grand total variable
-  double totalAll = 0.0;
+  double total = 0.0;
 
   @override
   void initState() {
@@ -121,6 +126,26 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
 
     //part 2
     cashController.addListener(_calculateResult);
+
+    //card
+    totalCreditController.addListener(_calculateResult);
+    totalFCoinController.addListener(_calculateResult);
+    totalOthersController.addListener(_calculateResult);
+
+    //coins
+    THB1000_qty.addListener(_calculateResult);
+    THB500_qty.addListener(_calculateResult);
+    THB200_qty.addListener(_calculateResult);
+    THB100_qty.addListener(_calculateResult);
+    THB50_qty.addListener(_calculateResult);
+    THB20_qty.addListener(_calculateResult);
+    THB10_qty.addListener(_calculateResult);
+    THB5_qty.addListener(_calculateResult);
+    THB2_qty.addListener(_calculateResult);
+    THB1_qty.addListener(_calculateResult);
+    THB050_qty.addListener(_calculateResult);
+    THB025_qty.addListener(_calculateResult);
+    totalCoinsController.addListener(_calculateResult);
   }
 
   void _calculateResult() {
@@ -147,6 +172,25 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
     //part 2
     final cashValue = double.tryParse(cashController.text) ?? 0.0;
 
+    //card
+    final totalCredit = double.tryParse(totalCreditController.text) ?? 0.0;
+    final totalFCoin = double.tryParse(totalFCoinController.text) ?? 0.0;
+    final totalOthers = double.tryParse(totalOthersController.text) ?? 0.0;
+
+    //coins
+    final THB1000 = (double.tryParse(THB1000_qty.text) ?? 0.0) * 1000;
+    final THB500 = (double.tryParse(THB500_qty.text) ?? 0.0) * 500;
+    final THB200 = (double.tryParse(THB200_qty.text) ?? 0.0) * 200;
+    final THB100 = (double.tryParse(THB100_qty.text) ?? 0.0) * 100;
+    final THB50 = (double.tryParse(THB50_qty.text) ?? 0.0) * 50;
+    final THB20 = (double.tryParse(THB20_qty.text) ?? 0.0) * 20;
+    final THB10 = (double.tryParse(THB10_qty.text) ?? 0.0) * 10;
+    final THB5 = (double.tryParse(THB5_qty.text) ?? 0.0) * 5;
+    final THB2 = (double.tryParse(THB2_qty.text) ?? 0.0) * 2;
+    final THB1 = (double.tryParse(THB1_qty.text) ?? 0.0) * 1;
+    final THB050 = (double.tryParse(THB050_qty.text) ?? 0.0) * 0.50;
+    final THB025 = (double.tryParse(THB025_qty.text) ?? 0.0) * 0.25;
+
     // Calculate currency result
     usdResult = usdValue * usdRateValue;
     sgdResult = sgdValue * sgdRateValue;
@@ -168,11 +212,38 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
         audResult +
         eurResult;
 
+    totalCoins = THB1000 +
+        THB500 +
+        THB200 +
+        THB100 +
+        THB50 +
+        THB20 +
+        THB10 +
+        THB5 +
+        THB2 +
+        THB1 +
+        THB050 +
+        THB025;
+
     // Calculate grand total
-    totalAll = totalCurrency + cashValue;
+    total = totalCredit +
+        totalFCoin +
+        totalOthers +
+        totalCurrency +
+        cashValue +
+        totalCoins;
 
     // Update the state
     setState(() {});
+  }
+
+  @override
+  void dispose() {
+    _dateController.dispose();
+    _staffIdController.dispose();
+    _nameController.dispose();
+    // Dispose other controllers here
+    super.dispose();
   }
 
   @override
@@ -288,32 +359,26 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
                   Row(
                     children: [
                       Expanded(
-                        flex: 2,
+                        flex: 5,
                         child: Container(
                           height: 30,
                           padding: const EdgeInsets.all(4),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black),
-                          ),
                           child: const Text(
                             "รวมทั้งสิ้น/Grand Total(1)+(2)+(3)+(4)+(5)+(6)",
                             style: TextStyle(
                                 fontSize: 12, fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
+                            textAlign: TextAlign.end,
                           ),
                         ),
                       ),
                       Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(4),
-                          child: SizedBox(
-                            height: 30,
-                            child: Center(
-                              child: _buildTotalRow(),
-                            ),
+                        child: SizedBox(
+                          height: 30,
+                          child: Center(
+                            child: _buildTotalRow(),
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                   const SizedBox(height: 10),
@@ -355,6 +420,7 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
   }
 
   Widget _buildTotalRow() {
+    final NumberFormat formatter = NumberFormat('#,##0.00');
     return Container(
       height: 30,
       padding: const EdgeInsets.all(4),
@@ -363,7 +429,7 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
       ),
       child: Center(
         child: Text(
-          ' ${totalAll.toStringAsFixed(2)}',
+          ' ${formatter.format(total)}',
           style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         ),
