@@ -114,7 +114,7 @@ class _CoinsSectionState extends State<CoinsSection> {
 
   Widget _buildTopRow() {
     return Container(
-      padding: const EdgeInsets.all(4),
+      padding: const EdgeInsets.all(4.5),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black),
       ),
@@ -178,7 +178,7 @@ class _CoinsSectionState extends State<CoinsSection> {
       children: [
         Expanded(
           child: Container(
-            padding: const EdgeInsets.all(4),
+            height: 30,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
@@ -203,7 +203,6 @@ class _CoinsSectionState extends State<CoinsSection> {
                 style: const TextStyle(fontSize: 12),
                 textAlign: TextAlign.center,
                 decoration: const InputDecoration(
-                  hintText: '0',
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.symmetric(vertical: 14),
                 ),
@@ -213,7 +212,7 @@ class _CoinsSectionState extends State<CoinsSection> {
         ),
         Expanded(
           child: Container(
-            padding: const EdgeInsets.all(5.5),
+            height: 30,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
@@ -235,7 +234,7 @@ class _CoinsSectionState extends State<CoinsSection> {
       children: [
         Expanded(
           child: Container(
-            padding: const EdgeInsets.all(3.5),
+            height: 30,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
@@ -248,8 +247,7 @@ class _CoinsSectionState extends State<CoinsSection> {
         ),
         Expanded(
           child: Container(
-            height: 27,
-            padding: const EdgeInsets.all(4),
+            height: 30,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),

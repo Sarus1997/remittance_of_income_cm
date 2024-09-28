@@ -262,7 +262,6 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
                           ],
                         ),
                       ),
-                      const SizedBox(width: 10),
                       Expanded(
                         flex: 1,
                         child: Column(
@@ -289,17 +288,32 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
                   Row(
                     children: [
                       Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            const Text(
-                              "รวมทั้งสิ้น/Grand Total(1)+(2)+(3)+(4)+(5)+(6)",
-                              style: TextStyle(fontSize: 12),
-                            ),
-                            _buildTotalRow(),
-                          ],
+                        flex: 2,
+                        child: Container(
+                          height: 30,
+                          padding: const EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black),
+                          ),
+                          child: const Text(
+                            "รวมทั้งสิ้น/Grand Total(1)+(2)+(3)+(4)+(5)+(6)",
+                            style: TextStyle(
+                                fontSize: 12, fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(4),
+                          child: SizedBox(
+                            height: 30,
+                            child: Center(
+                              child: _buildTotalRow(),
+                            ),
+                          ),
+                        ),
+                      )
                     ],
                   ),
                   const SizedBox(height: 10),
@@ -342,6 +356,7 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
 
   Widget _buildTotalRow() {
     return Container(
+      height: 30,
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black),

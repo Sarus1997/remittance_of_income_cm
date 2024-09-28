@@ -148,6 +148,7 @@ class CurrencySection extends StatelessWidget {
       children: [
         Expanded(
           child: Container(
+            height: 30,
             padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
@@ -156,20 +157,16 @@ class CurrencySection extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                    child: Text(
-                      currency,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                      ),
+                  child: Text(
+                    currency,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
                     ),
                   ),
                 ),
                 Flexible(
                   child: SizedBox(
-                    height: 20,
                     child: TextField(
                       controller: controller,
                       keyboardType: TextInputType.number,
@@ -189,7 +186,6 @@ class CurrencySection extends StatelessWidget {
                 const SizedBox(width: 4),
                 Flexible(
                   child: SizedBox(
-                    height: 20,
                     child: TextField(
                       controller: rateController,
                       keyboardType: TextInputType.number,
@@ -210,6 +206,7 @@ class CurrencySection extends StatelessWidget {
         Expanded(
           child: Container(
             height: 30,
+            padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
@@ -230,6 +227,7 @@ class CurrencySection extends StatelessWidget {
       children: [
         Expanded(
           child: Container(
+            height: 30,
             padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
@@ -243,7 +241,8 @@ class CurrencySection extends StatelessWidget {
         ),
         Expanded(
           child: Container(
-            height: 28,
+            height: 30,
+            padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
@@ -270,6 +269,7 @@ class CurrencySection extends StatelessWidget {
       children: [
         Expanded(
           child: Container(
+            height: 30,
             padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
@@ -291,6 +291,7 @@ class CurrencySection extends StatelessWidget {
       children: [
         Expanded(
           child: Container(
+            height: 30,
             padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
@@ -304,11 +305,12 @@ class CurrencySection extends StatelessWidget {
         ),
         Expanded(
           child: Container(
+            height: 30,
+            padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
             child: SizedBox(
-              height: 26,
               child: TextField(
                 controller: cashController,
                 style: const TextStyle(fontSize: 12),

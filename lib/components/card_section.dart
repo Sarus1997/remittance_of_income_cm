@@ -183,6 +183,7 @@ class _CardSectionState extends State<CardSection> {
         Expanded(
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 4),
+            height: 30,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
@@ -196,6 +197,7 @@ class _CardSectionState extends State<CardSection> {
         Expanded(
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 4),
+            height: 30,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
@@ -224,7 +226,7 @@ class _CardSectionState extends State<CardSection> {
 
   Widget _buildOthersRow() {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black),
       ),
@@ -243,7 +245,8 @@ class _CardSectionState extends State<CardSection> {
       children: [
         Expanded(
           child: Container(
-            padding: const EdgeInsets.all(4),
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            height: 30,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
@@ -257,7 +260,8 @@ class _CardSectionState extends State<CardSection> {
         ),
         Expanded(
           child: Container(
-            height: 27,
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            height: 30,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
@@ -287,6 +291,7 @@ class _CardSectionState extends State<CardSection> {
         Expanded(
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 4),
+            height: 30,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
@@ -300,11 +305,11 @@ class _CardSectionState extends State<CardSection> {
         Expanded(
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 4),
+            height: 30,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
             child: SizedBox(
-              height: 18,
               child: TextField(
                 controller: widget.totalOthersController,
                 style: const TextStyle(fontSize: 12),
