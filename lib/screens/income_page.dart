@@ -77,6 +77,7 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
   final TextEditingController THB1_qty = TextEditingController();
   final TextEditingController THB050_qty = TextEditingController();
   final TextEditingController THB025_qty = TextEditingController();
+  final TextEditingController totalCoins2 = TextEditingController();
 
   double totalCurrency = 0.0;
   double usdResult = 0.0;
@@ -135,7 +136,6 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
     //coins
     THB1000_qty.addListener(_calculateResult);
     THB500_qty.addListener(_calculateResult);
-    THB200_qty.addListener(_calculateResult);
     THB100_qty.addListener(_calculateResult);
     THB50_qty.addListener(_calculateResult);
     THB20_qty.addListener(_calculateResult);
@@ -180,7 +180,6 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
     //coins
     final THB1000 = (double.tryParse(THB1000_qty.text) ?? 0.0) * 1000;
     final THB500 = (double.tryParse(THB500_qty.text) ?? 0.0) * 500;
-    final THB200 = (double.tryParse(THB200_qty.text) ?? 0.0) * 200;
     final THB100 = (double.tryParse(THB100_qty.text) ?? 0.0) * 100;
     final THB50 = (double.tryParse(THB50_qty.text) ?? 0.0) * 50;
     final THB20 = (double.tryParse(THB20_qty.text) ?? 0.0) * 20;
@@ -214,7 +213,6 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
 
     totalCoins = THB1000 +
         THB500 +
-        THB200 +
         THB100 +
         THB50 +
         THB20 +
@@ -397,8 +395,23 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
                     cnyController: cnyController,
                     audController: audController,
                     eurController: eurController,
+                    totalCurrencyController: totalCurrencyController,
                     usdTotalController: eurRateController,
+                    cashController: cashController,
                     total: totalCurrency,
+                    THB1000_qty: THB1000_qty,
+                    THB500_qty: THB500_qty,
+                    THB100_qty: THB100_qty,
+                    THB50_qty: THB50_qty,
+                    THB20_qty: THB20_qty,
+                    THB10_qty: THB10_qty,
+                    THB5_qty: THB5_qty,
+                    THB2_qty: THB2_qty,
+                    THB1_qty: THB1_qty,
+                    THB050_qty: THB050_qty,
+                    THB025_qty: THB025_qty,
+                    totalCoinsController: totalCoinsController,
+                    totalCoins2: totalCoins2,
                   ),
                 ],
               ),
