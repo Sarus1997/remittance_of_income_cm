@@ -40,17 +40,30 @@ class ButtonsSection extends StatelessWidget {
   final TextEditingController cashController;
   final double total;
 
+  //coupon
+  final TextEditingController Coupon20_qty;
+  final TextEditingController Coupon10_qty;
+  final TextEditingController Coupon5_qty;
+  final TextEditingController totalCoupon;
+  final TextEditingController NetController;
+  final TextEditingController RefundController;
+  final TextEditingController RemarkController1;
+  final TextEditingController RemarkController2;
+  final TextEditingController RemarkController3;
+  final TextEditingController RemarkController4;
+  final TextEditingController RemarkController5;
+
   // Card controllers
-  final TextEditingController totalCreditController = TextEditingController();
-  final TextEditingController totalFCoinController = TextEditingController();
-  final TextEditingController totalOthersController = TextEditingController();
-  final TextEditingController resultCard = TextEditingController();
-  final TextEditingController EshopController = TextEditingController();
-  final TextEditingController VoucherController = TextEditingController();
-  final TextEditingController ChequeController = TextEditingController();
-  final TextEditingController PayinController = TextEditingController();
-  final TextEditingController TaxController = TextEditingController();
-  final TextEditingController GiftController = TextEditingController();
+  final TextEditingController totalCreditController;
+  final TextEditingController totalFCoinController;
+  final TextEditingController totalOthersController;
+  final TextEditingController resultCard;
+  final TextEditingController EshopController;
+  final TextEditingController VoucherController;
+  final TextEditingController ChequeController;
+  final TextEditingController PayinController;
+  final TextEditingController TaxController;
+  final TextEditingController GiftController;
 
   //coins
   final TextEditingController THB1000_qty;
@@ -67,13 +80,23 @@ class ButtonsSection extends StatelessWidget {
   final TextEditingController totalCoinsController;
   final TextEditingController totalCoins2;
 
-  ButtonsSection({
+  const ButtonsSection({
     required this.dateController,
     required this.staffIdController,
     required this.nameController,
     required this.deptController,
     required this.locationController,
     required this.creditController,
+    required this.totalCreditController,
+    required this.totalFCoinController,
+    required this.totalOthersController,
+    required this.resultCard,
+    required this.EshopController,
+    required this.VoucherController,
+    required this.ChequeController,
+    required this.PayinController,
+    required this.TaxController,
+    required this.GiftController,
     required this.usdController,
     required this.sgdController,
     required this.twdController,
@@ -109,6 +132,17 @@ class ButtonsSection extends StatelessWidget {
     required this.THB025_qty,
     required this.totalCoinsController,
     required this.totalCoins2,
+    required this.Coupon20_qty,
+    required this.Coupon10_qty,
+    required this.Coupon5_qty,
+    required this.totalCoupon,
+    required this.NetController,
+    required this.RefundController,
+    required this.RemarkController1,
+    required this.RemarkController2,
+    required this.RemarkController3,
+    required this.RemarkController4,
+    required this.RemarkController5,
     super.key,
   });
 
@@ -154,12 +188,30 @@ class ButtonsSection extends StatelessWidget {
   }
 
   Future<void> _saveData() async {
-    const url =
+    // Define the base URL
+    const baseUrl =
         "http://172.2.100.14/application/query_income_report_cm/fluttercon.php?mode=INSERT_DATA&type=";
 
+    String shopType = "";
+
+    if (locationController.text == "Souvenir") {
+      shopType = "SOU";
+    } else if (locationController.text == "F&B") {
+      shopType = "FB";
+    } else if (locationController.text == "Restaurant") {
+      shopType = "RES";
+    } else if (locationController.text == "Game") {
+      shopType = "GAM";
+    }
+
+    String url = baseUrl + shopType;
+
+    String idIncom = DateTime.now().millisecondsSinceEpoch.toString();
+    String incomDocNo = "DOC-${DateTime.now().millisecondsSinceEpoch}";
+
     Map<String, dynamic> incomeData = {
-      "id_incom": "",
-      "incom_docno": "",
+      "id_incom": idIncom,
+      "incom_docno": incomDocNo,
       "incom_date": dateController.text,
       "usercode": staffIdController.text,
       "shopcode": locationController.text,
@@ -173,9 +225,9 @@ class ButtonsSection extends StatelessWidget {
       "Payin_tot": PayinController.text,
       "Tax_tot": TaxController.text,
       "Gift_tot": GiftController.text,
-      "Coupon20_qty": "",
-      "Coupon10_qty": "",
-      "Coupon5_qty": "",
+      "Coupon20_qty": Coupon20_qty.text,
+      "Coupon10_qty": Coupon10_qty.text,
+      "Coupon5_qty": Coupon5_qty.text,
       "USD_qty": usdController.text,
       "USD_rate": usdRateController.text,
       "SGD_qty": sgdController.text,
@@ -241,7 +293,16 @@ class ButtonsSection extends StatelessWidget {
     final customFont = pw.Font.ttf(fontData);
 
     try {
-      // Parse inputs safely
+      double totalCredit = _parseDouble(totalCreditController.text);
+      double totalFCoin = _parseDouble(totalFCoinController.text);
+      double eshop = _parseDouble(EshopController.text);
+      double voucher = _parseDouble(VoucherController.text);
+      double cheque = _parseDouble(ChequeController.text);
+      double payin = _parseDouble(PayinController.text);
+      double tax = _parseDouble(TaxController.text);
+      double gift = _parseDouble(GiftController.text);
+      double totalOthers = _parseDouble(totalOthersController.text);
+
       double usdQuantity = _parseDouble(usdController.text);
       double usdRate = _parseDouble(usdRateController.text);
       double sgdQuantity = _parseDouble(sgdController.text);
@@ -282,9 +343,12 @@ class ButtonsSection extends StatelessWidget {
           audTotal +
           eurTotal;
       totalCurrencyController.text = totalSum.toStringAsFixed(2);
-
       double totalCurry = _parseDouble(totalCurrencyController.text);
+
       double cash = _parseDouble(cashController.text);
+
+      double NetCon = _parseDouble(NetController.text);
+      double Refund = _parseDouble(RefundController.text);
 
       //coins
       final double THB1000 = (double.tryParse(THB1000_qty.text) ?? 0.0) * 1000;
@@ -299,7 +363,7 @@ class ButtonsSection extends StatelessWidget {
       final double THB050 = (double.tryParse(THB050_qty.text) ?? 0.0) * 0.50;
       final double THB025 = (double.tryParse(THB025_qty.text) ?? 0.0) * 0.25;
 
-// Calculate the total amount
+      // Calculate the total amount
       double totalCoins2 = THB1000 +
           THB500 +
           THB100 +
@@ -312,7 +376,18 @@ class ButtonsSection extends StatelessWidget {
           THB050 +
           THB025;
 
-      //final totalRowWidget = buildTotalRow(totalCoins2);
+      final double Coupon20 = (double.tryParse(Coupon20_qty.text) ?? 0.0) * 20;
+      final double Coupon10 = (double.tryParse(Coupon10_qty.text) ?? 0.0) * 10;
+      final double Coupon5 = (double.tryParse(Coupon5_qty.text) ?? 0.0) * 5;
+
+      double totalCoupon = Coupon20 + Coupon10 + Coupon5;
+
+      double total = totalCredit +
+          totalFCoin +
+          totalCurry +
+          totalCoins2 +
+          cash +
+          totalOthers;
 
       pw.Widget buildCurrencyRow(
           String currency, String amount, String rate, String total) {
@@ -335,7 +410,7 @@ class ButtonsSection extends StatelessWidget {
                   padding: const pw.EdgeInsets.only(left: 2),
                   child: pw.Text(
                     ' $currency',
-                    style: pw.TextStyle(fontSize: 9, font: customFont),
+                    style: pw.TextStyle(fontSize: 10, font: customFont),
                   ),
                 ),
               ),
@@ -357,7 +432,7 @@ class ButtonsSection extends StatelessWidget {
                   padding: const pw.EdgeInsets.only(left: 2),
                   child: pw.Text(
                     '$amount x $rate',
-                    style: pw.TextStyle(fontSize: 9, font: customFont),
+                    style: pw.TextStyle(fontSize: 10, font: customFont),
                   ),
                 ),
               ),
@@ -372,7 +447,46 @@ class ButtonsSection extends StatelessWidget {
                 ),
                 child: pw.Text(
                   '  $total',
-                  style: pw.TextStyle(fontSize: 9, font: customFont),
+                  style: pw.TextStyle(fontSize: 10, font: customFont),
+                ),
+              ),
+            ),
+          ],
+        );
+      }
+
+      pw.Row buildRow(String label, double amount, pw.Font customFont) {
+        return pw.Row(
+          children: [
+            pw.SizedBox(
+              width: 92,
+              child: pw.Container(
+                height: 20,
+                alignment: pw.Alignment.centerLeft,
+                decoration: pw.BoxDecoration(
+                  border: pw.Border.all(color: PdfColors.black),
+                ),
+                child: pw.Center(
+                  child: pw.Text(
+                    label,
+                    style: pw.TextStyle(fontSize: 10, font: customFont),
+                  ),
+                ),
+              ),
+            ),
+            pw.SizedBox(
+              width: 91.5,
+              child: pw.Container(
+                height: 20,
+                alignment: pw.Alignment.center,
+                decoration: pw.BoxDecoration(
+                  border: pw.Border.all(color: PdfColors.black),
+                ),
+                child: pw.Center(
+                  child: pw.Text(
+                    NumberFormat('#,##0.00').format(amount),
+                    style: pw.TextStyle(fontSize: 10, font: customFont),
+                  ),
                 ),
               ),
             ),
@@ -398,7 +512,7 @@ class ButtonsSection extends StatelessWidget {
                 child: pw.Center(
                   child: pw.Text(
                     rate,
-                    style: const pw.TextStyle(fontSize: 9),
+                    style: const pw.TextStyle(fontSize: 10),
                   ),
                 ),
               ),
@@ -413,7 +527,7 @@ class ButtonsSection extends StatelessWidget {
                 child: pw.Center(
                   child: pw.Text(
                     controllerValue,
-                    style: const pw.TextStyle(fontSize: 9),
+                    style: const pw.TextStyle(fontSize: 10),
                     textAlign: pw.TextAlign.center,
                   ),
                 ),
@@ -426,10 +540,12 @@ class ButtonsSection extends StatelessWidget {
                 decoration: pw.BoxDecoration(
                   border: pw.Border.all(),
                 ),
-                child: pw.Text(
-                  NumberFormat('#,##0.00').format(result),
-                  style: const pw.TextStyle(fontSize: 9),
-                  textAlign: pw.TextAlign.center,
+                child: pw.Center(
+                  child: pw.Text(
+                    NumberFormat('#,##0.00').format(result),
+                    style: const pw.TextStyle(fontSize: 10),
+                    textAlign: pw.TextAlign.center,
+                  ),
                 ),
               ),
             ),
@@ -440,34 +556,170 @@ class ButtonsSection extends StatelessWidget {
       pw.Widget buildTotalRow(double totalCoins) {
         return pw.Row(
           children: [
-            pw.Expanded(
+            pw.SizedBox(
+              width: 113,
               child: pw.Container(
                 height: 20,
-                width: 120,
                 decoration: pw.BoxDecoration(
-                  border: pw.Border.all(color: PdfColors.black),
+                  border: pw.Border.all(),
                 ),
                 child: pw.Center(
                   child: pw.Text(
                     '(6)รวม/Total',
-                    style: const pw.TextStyle(fontSize: 9),
+                    style: pw.TextStyle(fontSize: 10, font: customFont),
                     textAlign: pw.TextAlign.center,
                   ),
                 ),
               ),
             ),
-            pw.Expanded(
+            pw.SizedBox(
+              width: 70.5,
               child: pw.Container(
                 height: 20,
-                width: 50,
                 decoration: pw.BoxDecoration(
-                  border: pw.Border.all(color: PdfColors.black),
+                  border: pw.Border.all(),
                 ),
                 child: pw.Center(
                   child: pw.Text(
                     NumberFormat('#,##0.00').format(totalCoins),
-                    style: pw.TextStyle(fontSize: 9, font: customFont),
+                    style: pw.TextStyle(fontSize: 10, font: customFont),
                   ),
+                ),
+              ),
+            ),
+          ],
+        );
+      }
+
+      pw.Widget buildTopCoupon() {
+        return pw.Row(
+          mainAxisAlignment: pw.MainAxisAlignment.center,
+          children: [
+            pw.Expanded(
+              child: pw.Container(
+                height: 30,
+                padding: const pw.EdgeInsets.all(4),
+                decoration: pw.BoxDecoration(
+                  border: pw.Border.all(color: PdfColors.black),
+                ),
+                child: pw.Text(
+                  'จำนวน\nQuantity',
+                  style: pw.TextStyle(fontSize: 10, font: customFont),
+                  textAlign: pw.TextAlign.center,
+                ),
+              ),
+            ),
+            pw.Expanded(
+              child: pw.Container(
+                height: 30,
+                padding: const pw.EdgeInsets.all(4),
+                decoration: pw.BoxDecoration(
+                  border: pw.Border.all(color: PdfColors.black),
+                ),
+                child: pw.Text(
+                  'จำนวน\nAmount',
+                  style: pw.TextStyle(fontSize: 10, font: customFont),
+                  textAlign: pw.TextAlign.center,
+                ),
+              ),
+            ),
+          ],
+        );
+      }
+
+      pw.Widget buildRowCoupon(
+          String coupon, String controllerValue, double result) {
+        return pw.Row(
+          children: [
+            pw.Expanded(
+              child: pw.Container(
+                height: 30,
+                padding: const pw.EdgeInsets.all(4),
+                decoration: const pw.BoxDecoration(
+                  border: pw.Border(
+                    top: pw.BorderSide(color: PdfColors.black),
+                    bottom: pw.BorderSide(color: PdfColors.black),
+                    left: pw.BorderSide(color: PdfColors.black),
+                  ),
+                ),
+                child: pw.Text(
+                  coupon,
+                  style: const pw.TextStyle(
+                    fontSize: 10,
+                  ),
+                ),
+              ),
+            ),
+            pw.Expanded(
+              flex: 1,
+              child: pw.Container(
+                height: 30,
+                padding: const pw.EdgeInsets.all(4),
+                decoration: const pw.BoxDecoration(
+                  border: pw.Border(
+                    top: pw.BorderSide(color: PdfColors.black),
+                    bottom: pw.BorderSide(color: PdfColors.black),
+                    right: pw.BorderSide(color: PdfColors.black),
+                  ),
+                ),
+                child: pw.Text(
+                  controllerValue,
+                  style: const pw.TextStyle(fontSize: 10),
+                  textAlign: pw.TextAlign.center,
+                ),
+              ),
+            ),
+            pw.Expanded(
+              flex: 2,
+              child: pw.Container(
+                height: 30,
+                padding: const pw.EdgeInsets.all(4),
+                decoration: pw.BoxDecoration(
+                  border: pw.Border.all(color: PdfColors.black),
+                ),
+                child: pw.Text(
+                  NumberFormat('#,##0.00').format(result),
+                  style: const pw.TextStyle(
+                    fontSize: 10,
+                  ),
+                  textAlign: pw.TextAlign.center,
+                ),
+              ),
+            ),
+          ],
+        );
+      }
+
+      pw.Widget buildTotalCoupon(double totalCoupon) {
+        return pw.Row(
+          mainAxisAlignment: pw.MainAxisAlignment.center,
+          children: [
+            pw.Expanded(
+              child: pw.Container(
+                height: 30,
+                padding: const pw.EdgeInsets.all(4),
+                decoration: pw.BoxDecoration(
+                  border: pw.Border.all(color: PdfColors.black),
+                ),
+                child: pw.Text(
+                  'รวม/Total',
+                  style: pw.TextStyle(fontSize: 10, font: customFont),
+                  textAlign: pw.TextAlign.center,
+                ),
+              ),
+            ),
+            pw.Expanded(
+              child: pw.Container(
+                height: 30,
+                padding: const pw.EdgeInsets.all(4),
+                decoration: pw.BoxDecoration(
+                  border: pw.Border.all(color: PdfColors.black),
+                ),
+                child: pw.Text(
+                  NumberFormat('#,##0.00').format(totalCoupon),
+                  style: pw.TextStyle(
+                      fontSize: 10, fontWeight: pw.FontWeight.bold),
+                  textAlign: pw.TextAlign.center,
                 ),
               ),
             ),
@@ -551,30 +803,177 @@ class ButtonsSection extends StatelessWidget {
                     pw.Expanded(
                       flex: 1,
                       child: pw.Column(
-                        mainAxisSize:
-                            pw.MainAxisSize.min, // จัดขนาดตามเนื้อหาภายใน
+                        mainAxisSize: pw.MainAxisSize.min,
                         crossAxisAlignment: pw.CrossAxisAlignment.start,
                         children: [
                           pw.Container(
-                            height: 40,
+                            height: 30,
                             width: 200,
                             alignment: pw.Alignment.center,
                             decoration: pw.BoxDecoration(
                               border: pw.Border.all(color: PdfColors.black),
                             ),
                             child: pw.Text(
-                              'เงินสกุลต่างประเทศ\nForeign Currency',
+                              'บัตรดครดิต\nCredit Card',
                               style:
-                                  pw.TextStyle(fontSize: 12, font: customFont),
+                                  pw.TextStyle(fontSize: 10, font: customFont),
                               textAlign: pw.TextAlign.center,
                             ),
                           ),
-                          // Add currency rows
-                          buildCurrencyRow('USD', usdController.text,
-                              usdRateController.text, usdTotal.toString()),
+                          // Add currency rows in the same row
+                          pw.Row(
+                            children: [
+                              pw.SizedBox(
+                                width: 92,
+                                child: pw.Container(
+                                  height: 20,
+                                  alignment: pw.Alignment.centerLeft,
+                                  decoration: pw.BoxDecoration(
+                                    border:
+                                        pw.Border.all(color: PdfColors.black),
+                                  ),
+                                  child: pw.Container(
+                                    height: 20,
+                                    decoration: pw.BoxDecoration(
+                                      border: pw.Border.all(),
+                                    ),
+                                    child: pw.Center(
+                                      child: pw.Text(
+                                        '(1)รวม/Total',
+                                        style: pw.TextStyle(
+                                            fontSize: 10, font: customFont),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              pw.SizedBox(
+                                width: 91,
+                                child: pw.Container(
+                                  height: 20,
+                                  alignment: pw.Alignment.center,
+                                  decoration: pw.BoxDecoration(
+                                    border:
+                                        pw.Border.all(color: PdfColors.black),
+                                  ),
+                                  child: pw.Container(
+                                    height: 20,
+                                    decoration: pw.BoxDecoration(
+                                      border: pw.Border.all(),
+                                    ),
+                                    child: pw.Center(
+                                      child: pw.Text(
+                                        NumberFormat('#,##0.00')
+                                            .format(totalCredit),
+                                        style: pw.TextStyle(
+                                            fontSize: 10, font: customFont),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          pw.SizedBox(height: 10),
+                          pw.Container(
+                            height: 30,
+                            width: 200,
+                            alignment: pw.Alignment.center,
+                            decoration: pw.BoxDecoration(
+                              border: pw.Border.all(color: PdfColors.black),
+                            ),
+                            child: pw.Text(
+                              'เอฟซีคอยน์\nFCoin',
+                              style:
+                                  pw.TextStyle(fontSize: 10, font: customFont),
+                              textAlign: pw.TextAlign.center,
+                            ),
+                          ),
+                          // Add currency rows in the same row
+                          pw.Row(
+                            children: [
+                              pw.SizedBox(
+                                width: 92,
+                                child: pw.Container(
+                                  height: 20,
+                                  alignment: pw.Alignment.centerLeft,
+                                  decoration: pw.BoxDecoration(
+                                    border:
+                                        pw.Border.all(color: PdfColors.black),
+                                  ),
+                                  child: pw.Container(
+                                    height: 20,
+                                    decoration: pw.BoxDecoration(
+                                      border: pw.Border.all(),
+                                    ),
+                                    child: pw.Center(
+                                      child: pw.Text(
+                                        '(1)รวม/Total',
+                                        style: pw.TextStyle(
+                                            fontSize: 10, font: customFont),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              pw.SizedBox(
+                                width: 91,
+                                child: pw.Container(
+                                  height: 20,
+                                  alignment: pw.Alignment.center,
+                                  decoration: pw.BoxDecoration(
+                                    border:
+                                        pw.Border.all(color: PdfColors.black),
+                                  ),
+                                  child: pw.Container(
+                                    height: 20,
+                                    decoration: pw.BoxDecoration(
+                                      border: pw.Border.all(),
+                                    ),
+                                    child: pw.Center(
+                                      child: pw.Text(
+                                        NumberFormat('#,##0.00')
+                                            .format(totalFCoin),
+                                        style: pw.TextStyle(
+                                            fontSize: 10, font: customFont),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          pw.SizedBox(height: 10),
+                          pw.Container(
+                            height: 30,
+                            width: 200,
+                            alignment: pw.Alignment.center,
+                            decoration: pw.BoxDecoration(
+                              border: pw.Border.all(color: PdfColors.black),
+                            ),
+                            child: pw.Text(
+                              'Other',
+                              style:
+                                  pw.TextStyle(fontSize: 10, font: customFont),
+                              textAlign: pw.TextAlign.center,
+                            ),
+                          ),
+                          // Add currency rows in the same row
+                          pw.Column(
+                            children: [
+                              buildRow('E-SHOP', eshop, customFont),
+                              buildRow('VOUCHER', voucher, customFont),
+                              buildRow('CHEQUE', cheque, customFont),
+                              buildRow('PAY-IN', payin, customFont),
+                              buildRow('TAX', tax, customFont),
+                              buildRow('GIFT CARD', gift, customFont),
+                              buildRow('(3)รวม/Total', totalOthers, customFont),
+                            ],
+                          ),
                         ],
                       ),
                     ),
+
                     pw.SizedBox(width: 10),
 
                     // ตาราง 2
@@ -585,7 +984,7 @@ class ButtonsSection extends StatelessWidget {
                         crossAxisAlignment: pw.CrossAxisAlignment.start,
                         children: [
                           pw.Container(
-                            height: 40,
+                            height: 30,
                             width: 200,
                             alignment: pw.Alignment.center,
                             decoration: pw.BoxDecoration(
@@ -594,7 +993,7 @@ class ButtonsSection extends StatelessWidget {
                             child: pw.Text(
                               'เงินสกุลต่างประเทศ\nForeign Currency',
                               style:
-                                  pw.TextStyle(fontSize: 12, font: customFont),
+                                  pw.TextStyle(fontSize: 10, font: customFont),
                               textAlign: pw.TextAlign.center,
                             ),
                           ),
@@ -603,7 +1002,7 @@ class ButtonsSection extends StatelessWidget {
                               pw.SizedBox(
                                 width: 110,
                                 child: pw.Container(
-                                  height: 40,
+                                  height: 30,
                                   alignment: pw.Alignment.center,
                                   decoration: pw.BoxDecoration(
                                     border:
@@ -612,7 +1011,7 @@ class ButtonsSection extends StatelessWidget {
                                   child: pw.Text(
                                     'จำนวน x มูลค่า\nQuantity x Rate',
                                     style: pw.TextStyle(
-                                        fontSize: 9, font: customFont),
+                                        fontSize: 10, font: customFont),
                                     textAlign: pw.TextAlign.center,
                                   ),
                                 ),
@@ -620,7 +1019,7 @@ class ButtonsSection extends StatelessWidget {
                               pw.SizedBox(
                                 width: 73.5,
                                 child: pw.Container(
-                                  height: 40,
+                                  height: 30,
                                   alignment: pw.Alignment.center,
                                   decoration: pw.BoxDecoration(
                                     border:
@@ -629,7 +1028,7 @@ class ButtonsSection extends StatelessWidget {
                                   child: pw.Text(
                                     'จำนวน\nAmount',
                                     style: pw.TextStyle(
-                                        fontSize: 9, font: customFont),
+                                        fontSize: 10, font: customFont),
                                     textAlign: pw.TextAlign.center,
                                   ),
                                 ),
@@ -696,7 +1095,7 @@ class ButtonsSection extends StatelessWidget {
                                   child: pw.Text(
                                     '(4)รวม/Total',
                                     style: pw.TextStyle(
-                                        fontSize: 9, font: customFont),
+                                        fontSize: 10, font: customFont),
                                     textAlign: pw.TextAlign.center,
                                   ),
                                 ),
@@ -713,7 +1112,7 @@ class ButtonsSection extends StatelessWidget {
                                   child: pw.Text(
                                     NumberFormat('#,##0.00').format(totalCurry),
                                     style: pw.TextStyle(
-                                        fontSize: 9, font: customFont),
+                                        fontSize: 10, font: customFont),
                                     textAlign: pw.TextAlign.center,
                                   ),
                                 ),
@@ -734,7 +1133,7 @@ class ButtonsSection extends StatelessWidget {
                                   child: pw.Text(
                                     'รายได้รอบ1/Amount (First Collection)',
                                     style: pw.TextStyle(
-                                        fontSize: 9, font: customFont),
+                                        fontSize: 10, font: customFont),
                                     textAlign: pw.TextAlign.center,
                                   ),
                                 ),
@@ -755,7 +1154,7 @@ class ButtonsSection extends StatelessWidget {
                                   child: pw.Text(
                                     '(5)เงินสด/Cash',
                                     style: pw.TextStyle(
-                                        fontSize: 9, font: customFont),
+                                        fontSize: 10, font: customFont),
                                     textAlign: pw.TextAlign.center,
                                   ),
                                 ),
@@ -772,7 +1171,7 @@ class ButtonsSection extends StatelessWidget {
                                   child: pw.Text(
                                     NumberFormat('#,##0.00').format(cash),
                                     style: pw.TextStyle(
-                                        fontSize: 9, font: customFont),
+                                        fontSize: 10, font: customFont),
                                     textAlign: pw.TextAlign.center,
                                   ),
                                 ),
@@ -791,16 +1190,16 @@ class ButtonsSection extends StatelessWidget {
                         crossAxisAlignment: pw.CrossAxisAlignment.start,
                         children: [
                           pw.Container(
-                            height: 40,
+                            height: 30,
                             width: 200,
                             alignment: pw.Alignment.center,
                             decoration: pw.BoxDecoration(
                               border: pw.Border.all(color: PdfColors.black),
                             ),
                             child: pw.Text(
-                              'เงินสกุลต่างประเทศ\nForeign Currency',
+                              'ธนาบัตรและเหรียญกษาปณ์\nNote and Coin',
                               style:
-                                  pw.TextStyle(fontSize: 12, font: customFont),
+                                  pw.TextStyle(fontSize: 10, font: customFont),
                               textAlign: pw.TextAlign.center,
                             ),
                           ),
@@ -809,7 +1208,7 @@ class ButtonsSection extends StatelessWidget {
                               pw.SizedBox(
                                 width: 53,
                                 child: pw.Container(
-                                  height: 40,
+                                  height: 30,
                                   alignment: pw.Alignment.center,
                                   decoration: pw.BoxDecoration(
                                     border:
@@ -818,7 +1217,7 @@ class ButtonsSection extends StatelessWidget {
                                   child: pw.Text(
                                     'ประเภท\nType',
                                     style: pw.TextStyle(
-                                        fontSize: 9, font: customFont),
+                                        fontSize: 10, font: customFont),
                                     textAlign: pw.TextAlign.center,
                                   ),
                                 ),
@@ -826,7 +1225,7 @@ class ButtonsSection extends StatelessWidget {
                               pw.SizedBox(
                                 width: 60,
                                 child: pw.Container(
-                                  height: 40,
+                                  height: 30,
                                   alignment: pw.Alignment.center,
                                   decoration: pw.BoxDecoration(
                                     border:
@@ -835,7 +1234,7 @@ class ButtonsSection extends StatelessWidget {
                                   child: pw.Text(
                                     'จำนวน\nQuantity',
                                     style: pw.TextStyle(
-                                        fontSize: 9, font: customFont),
+                                        fontSize: 10, font: customFont),
                                     textAlign: pw.TextAlign.center,
                                   ),
                                 ),
@@ -843,7 +1242,7 @@ class ButtonsSection extends StatelessWidget {
                               pw.SizedBox(
                                 width: 70.5,
                                 child: pw.Container(
-                                  height: 40,
+                                  height: 30,
                                   alignment: pw.Alignment.center,
                                   decoration: pw.BoxDecoration(
                                     border:
@@ -852,7 +1251,7 @@ class ButtonsSection extends StatelessWidget {
                                   child: pw.Text(
                                     'จำนวน\nAmount',
                                     style: pw.TextStyle(
-                                        fontSize: 9, font: customFont),
+                                        fontSize: 10, font: customFont),
                                     textAlign: pw.TextAlign.center,
                                   ),
                                 ),
@@ -882,6 +1281,320 @@ class ButtonsSection extends StatelessWidget {
                           buildCoinsRow(
                               '0.25', THB025_qty.text, THB025_qty.text, THB025),
                           buildTotalRow(totalCoins2),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                pw.Row(
+                  children: [
+                    pw.Expanded(
+                      child: pw.SizedBox(
+                        width: 200,
+                        height: 20,
+                        child: pw.Align(
+                          alignment: pw.Alignment.centerRight,
+                          child: pw.Text(
+                            'รวมทั้งสิ้น/Grand Total(1)+(2)+(3)+(4)+(5)+(6) ',
+                            style: pw.TextStyle(fontSize: 10, font: customFont),
+                          ),
+                        ),
+                      ),
+                    ),
+                    pw.SizedBox(
+                      width: 70.5,
+                      child: pw.Container(
+                        height: 20,
+                        alignment: pw.Alignment.center,
+                        decoration: pw.BoxDecoration(
+                          border: pw.Border.all(color: PdfColors.black),
+                        ),
+                        child: pw.Container(
+                          height: 20,
+                          decoration: pw.BoxDecoration(
+                            border: pw.Border.all(),
+                          ),
+                          child: pw.Center(
+                            child: pw.Text(
+                              NumberFormat('#,##0.00').format(total),
+                              style:
+                                  pw.TextStyle(fontSize: 10, font: customFont),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
+                pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.start,
+                  crossAxisAlignment: pw.CrossAxisAlignment.start,
+                  children: [
+                    // ตาราง 4
+                    pw.Expanded(
+                      flex: 2,
+                      child: pw.Column(
+                        mainAxisSize: pw.MainAxisSize.min,
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: [
+                          pw.SizedBox(height: 10),
+                          pw.Container(
+                            height: 30,
+                            width: 200,
+                            alignment: pw.Alignment.center,
+                            decoration: pw.BoxDecoration(
+                              border: pw.Border.all(color: PdfColors.black),
+                            ),
+                            child: pw.Text(
+                              'คูปอง\nCoupon',
+                              style:
+                                  pw.TextStyle(fontSize: 10, font: customFont),
+                              textAlign: pw.TextAlign.center,
+                            ),
+                          ),
+                          // Add currency rows in the same row
+                          pw.Column(
+                            children: [
+                              buildTopCoupon(),
+                              buildRowCoupon(
+                                  '20 x ', Coupon20_qty.text, Coupon20),
+                              buildRowCoupon(
+                                  '10 x ', Coupon10_qty.text, Coupon10),
+                              buildRowCoupon('5 x ', Coupon5_qty.text, Coupon5),
+                              buildTotalCoupon(totalCoupon),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    pw.SizedBox(width: 10),
+
+                    // ตาราง 2
+                    pw.Expanded(
+                      flex: 4,
+                      child: pw.Column(
+                        children: [
+                          pw.Row(
+                            children: [
+                              pw.Expanded(
+                                child: pw.SizedBox(
+                                  width: 150,
+                                  height: 20,
+                                  child: pw.Align(
+                                    alignment: pw.Alignment.centerRight,
+                                    child: pw.Text(
+                                      'หักรับคืนคูปอง/Refund ',
+                                      style: pw.TextStyle(
+                                          fontSize: 10, font: customFont),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              pw.SizedBox(
+                                width: 70.5,
+                                child: pw.Container(
+                                  height: 20,
+                                  alignment: pw.Alignment.center,
+                                  decoration: pw.BoxDecoration(
+                                    border:
+                                        pw.Border.all(color: PdfColors.black),
+                                  ),
+                                  child: pw.Container(
+                                    height: 20,
+                                    decoration: pw.BoxDecoration(
+                                      border: pw.Border.all(),
+                                    ),
+                                    child: pw.Center(
+                                      child: pw.Text(
+                                        NumberFormat('#,##0.00').format(Refund),
+                                        style: pw.TextStyle(
+                                            fontSize: 10, font: customFont),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          pw.Row(
+                            children: [
+                              pw.Expanded(
+                                child: pw.SizedBox(
+                                  width: 150,
+                                  height: 20,
+                                  child: pw.Align(
+                                    alignment: pw.Alignment.centerRight,
+                                    child: pw.Text(
+                                      'รวมรายได้ได้สุทธิ/Net Amount ',
+                                      style: pw.TextStyle(
+                                          fontSize: 10, font: customFont),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              pw.SizedBox(
+                                width: 70.5,
+                                child: pw.Container(
+                                  height: 20,
+                                  alignment: pw.Alignment.center,
+                                  decoration: pw.BoxDecoration(
+                                    border:
+                                        pw.Border.all(color: PdfColors.black),
+                                  ),
+                                  child: pw.Container(
+                                    height: 20,
+                                    decoration: pw.BoxDecoration(
+                                      border: pw.Border.all(),
+                                    ),
+                                    child: pw.Center(
+                                      child: pw.Text(
+                                        NumberFormat('#,##0.00').format(NetCon),
+                                        style: pw.TextStyle(
+                                            fontSize: 10, font: customFont),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          pw.SizedBox(height: 10),
+                          pw.Row(
+                            children: [
+                              pw.Expanded(
+                                flex: 1,
+                                child: pw.Text(
+                                  "หมายเหตุ/Remark",
+                                  style: pw.TextStyle(
+                                      fontSize: 9, font: customFont),
+                                ),
+                              ),
+                              pw.SizedBox(width: 5),
+                              pw.Expanded(
+                                flex: 4,
+                                child: pw.Container(
+                                  height: 20,
+                                  decoration: const pw.BoxDecoration(
+                                    border: pw.Border(
+                                      bottom: pw.BorderSide(width: 1),
+                                    ),
+                                  ),
+                                  child: pw.Padding(
+                                    padding: const pw.EdgeInsets.only(top: 8),
+                                    child: pw.Text(
+                                      RemarkController1.text,
+                                      style: pw.TextStyle(
+                                        fontSize: 9,
+                                        font: customFont,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          pw.Row(
+                            children: [
+                              pw.Expanded(
+                                flex: 5,
+                                child: pw.Container(
+                                  height: 20,
+                                  decoration: const pw.BoxDecoration(
+                                    border: pw.Border(
+                                      bottom: pw.BorderSide(width: 1),
+                                    ),
+                                  ),
+                                  child: pw.Padding(
+                                    padding: const pw.EdgeInsets.only(top: 8),
+                                    child: pw.Text(
+                                      RemarkController2.text,
+                                      style: pw.TextStyle(
+                                        fontSize: 9,
+                                        font: customFont,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          pw.Row(
+                            children: [
+                              pw.Expanded(
+                                flex: 5,
+                                child: pw.Container(
+                                  height: 20,
+                                  decoration: const pw.BoxDecoration(
+                                    border: pw.Border(
+                                      bottom: pw.BorderSide(width: 1),
+                                    ),
+                                  ),
+                                  child: pw.Padding(
+                                    padding: const pw.EdgeInsets.only(top: 8),
+                                    child: pw.Text(
+                                      RemarkController3.text,
+                                      style: pw.TextStyle(
+                                        fontSize: 9,
+                                        font: customFont,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          pw.Row(
+                            children: [
+                              pw.Expanded(
+                                flex: 5,
+                                child: pw.Container(
+                                  height: 20,
+                                  decoration: const pw.BoxDecoration(
+                                    border: pw.Border(
+                                      bottom: pw.BorderSide(width: 1),
+                                    ),
+                                  ),
+                                  child: pw.Padding(
+                                    padding: const pw.EdgeInsets.only(top: 8),
+                                    child: pw.Text(
+                                      RemarkController4.text,
+                                      style: pw.TextStyle(
+                                        fontSize: 9,
+                                        font: customFont,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          pw.Row(
+                            children: [
+                              pw.Expanded(
+                                flex: 5,
+                                child: pw.Container(
+                                  height: 20,
+                                  decoration: const pw.BoxDecoration(
+                                    border: pw.Border(
+                                      bottom: pw.BorderSide(width: 1),
+                                    ),
+                                  ),
+                                  child: pw.Padding(
+                                    padding: const pw.EdgeInsets.only(top: 8),
+                                    child: pw.Text(
+                                      RemarkController5.text,
+                                      style: pw.TextStyle(
+                                        fontSize: 9,
+                                        font: customFont,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                     ),

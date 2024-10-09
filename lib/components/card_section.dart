@@ -13,7 +13,6 @@ class CardSection extends StatefulWidget {
   final TextEditingController PayinController;
   final TextEditingController TaxController;
   final TextEditingController GiftController;
-  final TextEditingController resultCard;
 
   const CardSection({
     super.key,
@@ -26,7 +25,6 @@ class CardSection extends StatefulWidget {
     required this.PayinController,
     required this.TaxController,
     required this.GiftController,
-    required this.resultCard,
   });
 
   @override
@@ -66,9 +64,9 @@ class _CardSectionState extends State<CardSection> {
     double tax = _parseInput(widget.TaxController.text);
     double gift = _parseInput(widget.GiftController.text);
 
-    double total = eshop + voucher + cheque + payin + tax + gift;
+    double totalCoins = eshop + voucher + cheque + payin + tax + gift;
 
-    widget.totalOthersController.text = total.toStringAsFixed(2);
+    widget.totalOthersController.text = totalCoins.toStringAsFixed(2);
   }
 
   double _parseInput(String input) {

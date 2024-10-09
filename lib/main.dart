@@ -10,8 +10,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final currentYear = DateTime.now().year; // Get current year
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'ROI CM',
@@ -36,19 +34,6 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ],
-        ),
-        bottomNavigationBar: Container(
-          color: Colors.pinkAccent.shade100,
-          padding: const EdgeInsets.all(8.0),
-          width: double.infinity,
-          child: Text(
-            '© $currentYear All rights reserved.',
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 12,
-            ),
-            textAlign: TextAlign.center,
-          ),
         ),
       ),
     );
