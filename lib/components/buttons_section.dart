@@ -148,39 +148,44 @@ class ButtonsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-              textStyle: const TextStyle(fontSize: 16),
-            ),
-            onPressed: () async {
-              if (kDebugMode) {
-                print('Save button pressed');
-              }
-              await _saveData();
-            },
-            child: const Text('บันทึก/Save'),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-              textStyle: const TextStyle(fontSize: 16),
-            ),
-            onPressed: () async {
-              if (kDebugMode) {
-                print('Print button pressed');
-              }
-              await _generateAndPrintPdf();
-            },
-            child: const Text('พิมพ์/Print'),
+        Align(
+          alignment: Alignment.centerRight,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  textStyle: const TextStyle(fontSize: 16),
+                ),
+                onPressed: () async {
+                  if (kDebugMode) {
+                    print('Save button pressed');
+                  }
+                  await _saveData();
+                },
+                child: const Text('บันทึก/Save'),
+              ),
+              const SizedBox(width: 10),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  textStyle: const TextStyle(fontSize: 16),
+                ),
+                onPressed: () async {
+                  if (kDebugMode) {
+                    print('Print button pressed');
+                  }
+                  await _generateAndPrintPdf();
+                },
+                child: const Text('พิมพ์/Print'),
+              ),
+            ],
           ),
         ),
       ],

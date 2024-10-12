@@ -101,7 +101,10 @@ class _FormSectionState extends State<FormSection> {
             ? items.map((item) {
                 return DropdownMenuItem<String>(
                   value: item,
-                  child: Text(item),
+                  child: Text(
+                    item,
+                    style: const TextStyle(fontSize: 10),
+                  ),
                 );
               }).toList()
             : [],
@@ -125,6 +128,7 @@ class _FormSectionState extends State<FormSection> {
               labelText: label,
               border: const OutlineInputBorder(),
             ),
+            style: const TextStyle(fontSize: 10),
           ),
         ),
       ),

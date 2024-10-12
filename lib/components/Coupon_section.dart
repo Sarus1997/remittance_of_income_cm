@@ -75,14 +75,14 @@ class _CouponState extends State<Coupon> {
 
   Widget _buildTopRow() {
     return Container(
-      padding: const EdgeInsets.all(4),
+      padding: const EdgeInsets.all(2),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black),
       ),
       child: const Center(
         child: Text(
           'คูปอง\nCoupon',
-          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         ),
       ),
@@ -100,7 +100,7 @@ class _CouponState extends State<Coupon> {
             ),
             child: const Text(
               'จำนวน\nQuantity',
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),
@@ -112,7 +112,7 @@ class _CouponState extends State<Coupon> {
             ),
             child: const Text(
               'จำนวน\nAmount',
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),
@@ -128,8 +128,8 @@ class _CouponState extends State<Coupon> {
       children: [
         Expanded(
           child: Container(
-            height: 30,
-            padding: const EdgeInsets.all(4),
+            height: 24,
+            padding: const EdgeInsets.all(2),
             decoration: const BoxDecoration(
               border: Border(
                 top: BorderSide(color: Colors.black),
@@ -149,8 +149,8 @@ class _CouponState extends State<Coupon> {
         Expanded(
           flex: 1,
           child: Container(
-            height: 30,
-            padding: const EdgeInsets.all(4),
+            height: 24,
+            padding: const EdgeInsets.all(2),
             decoration: const BoxDecoration(
               border: Border(
                 top: BorderSide(color: Colors.black),
@@ -174,14 +174,14 @@ class _CouponState extends State<Coupon> {
         Expanded(
           flex: 2,
           child: Container(
-            height: 30,
-            padding: const EdgeInsets.all(4),
+            height: 24,
+            padding: const EdgeInsets.all(2),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
             child: Text(
               NumberFormat('#,##0.00').format(result),
-              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),
@@ -196,22 +196,22 @@ class _CouponState extends State<Coupon> {
       children: [
         Expanded(
           child: Container(
-            height: 30,
-            padding: const EdgeInsets.all(4),
+            height: 24,
+            padding: const EdgeInsets.all(2),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
             child: const Text(
               'รวม/Total',
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),
         ),
         Expanded(
           child: Container(
-            height: 30,
-            padding: const EdgeInsets.all(4),
+            height: 24,
+            padding: const EdgeInsets.all(2),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
@@ -219,9 +219,9 @@ class _CouponState extends State<Coupon> {
               controller: widget.totalCoupon,
               decoration: const InputDecoration(
                 border: InputBorder.none,
-                contentPadding: EdgeInsets.symmetric(vertical: 12),
+                contentPadding: EdgeInsets.symmetric(vertical: 15),
               ),
-              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
               enabled: false,
             ),

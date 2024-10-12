@@ -326,6 +326,70 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
+                  ButtonsSection(
+                    dateController: _dateController,
+                    staffIdController: _staffIdController,
+                    nameController: _nameController,
+                    deptController: _deptController,
+                    creditController: creditController,
+                    locationController: _locationController,
+                    usdController: usdController,
+                    sgdController: sgdController,
+                    totalCreditController: totalCreditController,
+                    totalFCoinController: totalFCoinController,
+                    totalOthersController: totalOthersController,
+                    resultCard: resultCard,
+                    EshopController: EshopController,
+                    VoucherController: VoucherController,
+                    ChequeController: ChequeController,
+                    PayinController: PayinController,
+                    TaxController: TaxController,
+                    GiftController: GiftController,
+                    usdRateController: usdRateController,
+                    sgdRateController: sgdRateController,
+                    twdRateController: twdRateController,
+                    jpyRateController: jpyRateController,
+                    hkdRateController: hkdRateController,
+                    gbpRateController: gbpRateController,
+                    cnyRateController: cnyRateController,
+                    audRateController: audRateController,
+                    eurRateController: eurRateController,
+                    twdController: twdController,
+                    jpyController: jpyController,
+                    hkdController: hkdController,
+                    gbpController: gbpController,
+                    cnyController: cnyController,
+                    audController: audController,
+                    eurController: eurController,
+                    totalCurrencyController: totalCurrencyController,
+                    usdTotalController: eurRateController,
+                    cashController: cashController,
+                    total: totalCurrency,
+                    THB1000_qty: THB1000_qty,
+                    THB500_qty: THB500_qty,
+                    THB100_qty: THB100_qty,
+                    THB50_qty: THB50_qty,
+                    THB20_qty: THB20_qty,
+                    THB10_qty: THB10_qty,
+                    THB5_qty: THB5_qty,
+                    THB2_qty: THB2_qty,
+                    THB1_qty: THB1_qty,
+                    THB050_qty: THB050_qty,
+                    THB025_qty: THB025_qty,
+                    totalCoinsController: totalCoinsController,
+                    totalCoins2: totalCoins2,
+                    Coupon20_qty: Coupon20_qty,
+                    Coupon10_qty: Coupon10_qty,
+                    Coupon5_qty: Coupon5_qty,
+                    totalCoupon: totalCoupon,
+                    NetController: NetController,
+                    RefundController: RefundController,
+                    RemarkController1: RemarkController1,
+                    RemarkController2: RemarkController2,
+                    RemarkController3: RemarkController3,
+                    RemarkController4: RemarkController4,
+                    RemarkController5: RemarkController5,
+                  ),
                   const HeaderSection(),
                   const SizedBox(height: 10),
                   FormSection(
@@ -428,19 +492,19 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
                       Expanded(
                         flex: 5,
                         child: Container(
-                          height: 30,
+                          height: 24,
                           padding: const EdgeInsets.all(4),
                           child: const Text(
-                            "รวมทั้งสิ้น/Grand Total(1)+(2)+(3)+(4)+(5)+(6)  ",
+                            "รวมทั้งสิ้น/Grand Total(1)+(2)+(3)+(4)+(5)+(6)",
                             style: TextStyle(
-                                fontSize: 12, fontWeight: FontWeight.bold),
+                                fontSize: 10, fontWeight: FontWeight.bold),
                             textAlign: TextAlign.end,
                           ),
                         ),
                       ),
                       Expanded(
+                        flex: 1,
                         child: SizedBox(
-                          height: 30,
                           child: Center(
                             child: _buildTotalRow(),
                           ),
@@ -484,70 +548,27 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
                     ],
                   ),
                   const SizedBox(height: 10),
-                  ButtonsSection(
-                    dateController: _dateController,
-                    staffIdController: _staffIdController,
-                    nameController: _nameController,
-                    deptController: _deptController,
-                    creditController: creditController,
-                    locationController: _locationController,
-                    usdController: usdController,
-                    sgdController: sgdController,
-                    totalCreditController: totalCreditController,
-                    totalFCoinController: totalFCoinController,
-                    totalOthersController: totalOthersController,
-                    resultCard: resultCard,
-                    EshopController: EshopController,
-                    VoucherController: VoucherController,
-                    ChequeController: ChequeController,
-                    PayinController: PayinController,
-                    TaxController: TaxController,
-                    GiftController: GiftController,
-                    usdRateController: usdRateController,
-                    sgdRateController: sgdRateController,
-                    twdRateController: twdRateController,
-                    jpyRateController: jpyRateController,
-                    hkdRateController: hkdRateController,
-                    gbpRateController: gbpRateController,
-                    cnyRateController: cnyRateController,
-                    audRateController: audRateController,
-                    eurRateController: eurRateController,
-                    twdController: twdController,
-                    jpyController: jpyController,
-                    hkdController: hkdController,
-                    gbpController: gbpController,
-                    cnyController: cnyController,
-                    audController: audController,
-                    eurController: eurController,
-                    totalCurrencyController: totalCurrencyController,
-                    usdTotalController: eurRateController,
-                    cashController: cashController,
-                    total: totalCurrency,
-                    THB1000_qty: THB1000_qty,
-                    THB500_qty: THB500_qty,
-                    THB100_qty: THB100_qty,
-                    THB50_qty: THB50_qty,
-                    THB20_qty: THB20_qty,
-                    THB10_qty: THB10_qty,
-                    THB5_qty: THB5_qty,
-                    THB2_qty: THB2_qty,
-                    THB1_qty: THB1_qty,
-                    THB050_qty: THB050_qty,
-                    THB025_qty: THB025_qty,
-                    totalCoinsController: totalCoinsController,
-                    totalCoins2: totalCoins2,
-                    Coupon20_qty: Coupon20_qty,
-                    Coupon10_qty: Coupon10_qty,
-                    Coupon5_qty: Coupon5_qty,
-                    totalCoupon: totalCoupon,
-                    NetController: NetController,
-                    RefundController: RefundController,
-                    RemarkController1: RemarkController1,
-                    RemarkController2: RemarkController2,
-                    RemarkController3: RemarkController3,
-                    RemarkController4: RemarkController4,
-                    RemarkController5: RemarkController5,
+                  Row(
+                    children: [
+                      Expanded(
+                        child: SizedBox(
+                          height: 30,
+                          child: Center(
+                            child: _buildReportde(),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: SizedBox(
+                          height: 30,
+                          child: Center(
+                            child: _buildReceived(),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
+                  const SizedBox(height: 120),
                 ],
               ),
             ),
@@ -560,7 +581,7 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
   Widget _buildTotalRow() {
     final NumberFormat formatter = NumberFormat('#,##0.00');
     return Container(
-      height: 30,
+      height: 24,
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black),
@@ -568,10 +589,116 @@ class _IncomeReportPageState extends State<IncomeReportPage> {
       child: Center(
         child: Text(
           ' ${formatter.format(total)}',
-          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         ),
       ),
+    );
+  }
+
+  Widget _buildReportde() {
+    return Column(
+      children: [
+        Container(
+          height: 20,
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.black),
+          ),
+          child: const Center(
+            child: Text(
+              'ผู้นำส่ง/Reportde by',
+              style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.black),
+          ),
+          child: const SizedBox(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(height: 25),
+                  Text(
+                    '________________________',
+                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    '(                                             )',
+                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    '______/________/_______',
+                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 10),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildReceived() {
+    return Column(
+      children: [
+        Container(
+          height: 20,
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.black),
+          ),
+          child: const Center(
+            child: Text(
+              'ผู้รับเงิน/Received by',
+              style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.black),
+          ),
+          child: const SizedBox(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(height: 25),
+                  Text(
+                    '________________________',
+                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    '(                                             )',
+                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    '______/________/_______',
+                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 10),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

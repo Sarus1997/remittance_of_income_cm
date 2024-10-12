@@ -10,9 +10,8 @@ class HeaderSection extends StatelessWidget {
       children: [
         Text(
           "ใบนำส่งรายได้/Income Report Carnival Magic",
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
-        Text("Logo", style: TextStyle(fontSize: 18)),
       ],
     );
   }

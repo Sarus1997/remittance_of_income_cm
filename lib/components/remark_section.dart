@@ -55,7 +55,7 @@ class _RemarkState extends State<Remark> {
         Expanded(
           flex: 3,
           child: Container(
-            height: 30,
+            height: 24,
             padding: const EdgeInsets.all(4),
             child: const Text(
               "หักรับคืนคูปอง/Refund",
@@ -66,7 +66,7 @@ class _RemarkState extends State<Remark> {
         ),
         Expanded(
           child: Container(
-            height: 30,
+            height: 24,
             padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
@@ -74,10 +74,10 @@ class _RemarkState extends State<Remark> {
             child: SizedBox(
               child: TextField(
                 controller: widget.RefundController,
-                style: const TextStyle(fontSize: 12),
+                style: const TextStyle(fontSize: 10),
                 textAlign: TextAlign.center,
                 decoration: const InputDecoration(
-                  hintStyle: TextStyle(fontSize: 12),
+                  hintStyle: TextStyle(fontSize: 10),
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.symmetric(vertical: 15),
                 ),
@@ -95,7 +95,7 @@ class _RemarkState extends State<Remark> {
         Expanded(
           flex: 3,
           child: Container(
-            height: 30,
+            height: 24,
             padding: const EdgeInsets.all(4),
             child: const Text(
               "รวมรายได้สุทธิ/Net Amount",
@@ -106,7 +106,7 @@ class _RemarkState extends State<Remark> {
         ),
         Expanded(
           child: Container(
-            height: 30,
+            height: 24,
             padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
@@ -114,10 +114,10 @@ class _RemarkState extends State<Remark> {
             child: SizedBox(
               child: TextField(
                 controller: widget.NetController,
-                style: const TextStyle(fontSize: 12),
+                style: const TextStyle(fontSize: 10),
                 textAlign: TextAlign.center,
                 decoration: const InputDecoration(
-                  hintStyle: TextStyle(fontSize: 12),
+                  hintStyle: TextStyle(fontSize: 10),
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.symmetric(vertical: 15),
                 ),
@@ -134,10 +134,10 @@ class _RemarkState extends State<Remark> {
       children: [
         const Expanded(
           child: SizedBox(
-            height: 30,
+            height: 24,
             child: Text(
               "หมายเหตุ/Remark",
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
             ),
           ),
         ),

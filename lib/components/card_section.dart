@@ -80,10 +80,10 @@ class _CardSectionState extends State<CardSection> {
       children: [
         _buildTopRow(),
         _buildTotalRow(),
-        const SizedBox(height: 20),
+        const SizedBox(height: 10),
         _buildFCoinRow(),
         _buildTotalFCoinRow(),
-        const SizedBox(height: 20),
+        const SizedBox(height: 10),
         _buildOthersRow(),
         _buildOthers2Row("E-SHOP", widget.EshopController),
         _buildOthers2Row("VOUCHER", widget.VoucherController),
@@ -98,14 +98,14 @@ class _CardSectionState extends State<CardSection> {
 
   Widget _buildTopRow() {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.symmetric(vertical: 2),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black),
       ),
       child: const Center(
         child: Text(
           'บัตรเครดิต\nCredit Card',
-          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         ),
       ),
@@ -118,20 +118,21 @@ class _CardSectionState extends State<CardSection> {
       children: [
         Expanded(
           child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 4),
+            padding: const EdgeInsets.symmetric(vertical: 2),
+            height: 24,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
             child: const Text(
               '(1)รวม/Total',
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),
         ),
         Expanded(
           child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 4),
+            padding: const EdgeInsets.symmetric(vertical: 2),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
@@ -139,16 +140,16 @@ class _CardSectionState extends State<CardSection> {
               height: 18,
               child: TextField(
                 controller: widget.totalCreditController,
-                style: const TextStyle(fontSize: 12),
+                style: const TextStyle(fontSize: 10),
                 textAlign: TextAlign.center,
                 keyboardType: TextInputType.number,
                 inputFormatters: <TextInputFormatter>[
                   FilteringTextInputFormatter.digitsOnly,
                 ],
                 decoration: const InputDecoration(
-                  hintStyle: TextStyle(fontSize: 12),
+                  hintStyle: TextStyle(fontSize: 10),
                   border: InputBorder.none,
-                  contentPadding: EdgeInsets.symmetric(vertical: 13),
+                  contentPadding: EdgeInsets.symmetric(vertical: 15),
                 ),
               ),
             ),
@@ -160,14 +161,14 @@ class _CardSectionState extends State<CardSection> {
 
   Widget _buildFCoinRow() {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.symmetric(vertical: 2),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black),
       ),
       child: const Center(
         child: Text(
           'เอฟซีคอยน์\nFCoin',
-          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         ),
       ),
@@ -180,22 +181,21 @@ class _CardSectionState extends State<CardSection> {
       children: [
         Expanded(
           child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 4),
-            height: 30,
+            padding: const EdgeInsets.symmetric(vertical: 2),
+            height: 24,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
             child: const Text(
               '(2)รวม/Total',
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),
         ),
         Expanded(
           child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 4),
-            height: 30,
+            padding: const EdgeInsets.symmetric(vertical: 2),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
@@ -203,14 +203,14 @@ class _CardSectionState extends State<CardSection> {
               height: 18,
               child: TextField(
                 controller: widget.totalFCoinController,
-                style: const TextStyle(fontSize: 12),
+                style: const TextStyle(fontSize: 10),
                 textAlign: TextAlign.center,
                 keyboardType: TextInputType.number,
                 inputFormatters: <TextInputFormatter>[
                   FilteringTextInputFormatter.digitsOnly,
                 ],
                 decoration: const InputDecoration(
-                  hintStyle: TextStyle(fontSize: 12),
+                  hintStyle: TextStyle(fontSize: 10),
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.symmetric(vertical: 15),
                 ),
@@ -231,7 +231,7 @@ class _CardSectionState extends State<CardSection> {
       child: const Center(
         child: Text(
           'Others',
-          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         ),
       ),
@@ -243,23 +243,23 @@ class _CardSectionState extends State<CardSection> {
       children: [
         Expanded(
           child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 4),
-            height: 30,
+            padding: const EdgeInsets.symmetric(vertical: 2),
+            height: 24,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
             child: Center(
               child: Text(
                 label,
-                style: const TextStyle(fontSize: 12),
+                style: const TextStyle(fontSize: 10),
               ),
             ),
           ),
         ),
         Expanded(
           child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 4),
-            height: 30,
+            padding: const EdgeInsets.symmetric(vertical: 2),
+            height: 24,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
@@ -267,7 +267,7 @@ class _CardSectionState extends State<CardSection> {
               child: TextField(
                 controller: controller,
                 keyboardType: TextInputType.number,
-                style: const TextStyle(fontSize: 12),
+                style: const TextStyle(fontSize: 10),
                 textAlign: TextAlign.center,
                 decoration: const InputDecoration(
                   hintText: '0',
@@ -288,36 +288,36 @@ class _CardSectionState extends State<CardSection> {
       children: [
         Expanded(
           child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 4),
-            height: 30,
+            padding: const EdgeInsets.symmetric(vertical: 2),
+            height: 24,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
             child: const Text(
               '(3)รวม/Total',
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),
         ),
         Expanded(
           child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 4),
-            height: 30,
+            padding: const EdgeInsets.symmetric(vertical: 2),
+            height: 24,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
             child: SizedBox(
               child: TextField(
                 controller: widget.totalOthersController,
-                style: const TextStyle(fontSize: 12),
+                style: const TextStyle(fontSize: 10),
                 textAlign: TextAlign.center,
                 keyboardType: TextInputType.number,
                 inputFormatters: <TextInputFormatter>[
                   FilteringTextInputFormatter.digitsOnly,
                 ],
                 decoration: const InputDecoration(
-                  hintStyle: TextStyle(fontSize: 12),
+                  hintStyle: TextStyle(fontSize: 10),
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.symmetric(vertical: 15),
                 ),

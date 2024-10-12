@@ -115,14 +115,14 @@ class _CoinsSectionState extends State<CoinsSection> {
 
   Widget _buildTopRow() {
     return Container(
-      padding: const EdgeInsets.all(4.5),
+      padding: const EdgeInsets.all(2),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black),
       ),
       child: const Center(
         child: Text(
           'ธนาบัตรและเหรียญกษาปณ์\nNptes & Coins',
-          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 10),
           textAlign: TextAlign.center,
         ),
       ),
@@ -140,7 +140,7 @@ class _CoinsSectionState extends State<CoinsSection> {
             ),
             child: const Text(
               'ประเภท\nType',
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),
@@ -152,7 +152,7 @@ class _CoinsSectionState extends State<CoinsSection> {
             ),
             child: const Text(
               'จำนวน\nQuantity',
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),
@@ -164,7 +164,7 @@ class _CoinsSectionState extends State<CoinsSection> {
             ),
             child: const Text(
               'จำนวน\nAmount',
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),
@@ -179,21 +179,22 @@ class _CoinsSectionState extends State<CoinsSection> {
       children: [
         Expanded(
           child: Container(
-            height: 30,
+            height: 24,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
             child: Center(
               child: Text(
                 rate,
-                style: const TextStyle(fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
               ),
             ),
           ),
         ),
         Expanded(
           child: Container(
-            height: 30,
+            height: 24,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
@@ -201,7 +202,7 @@ class _CoinsSectionState extends State<CoinsSection> {
               child: TextField(
                 controller: controller,
                 keyboardType: TextInputType.number,
-                style: const TextStyle(fontSize: 12),
+                style: const TextStyle(fontSize: 10),
                 textAlign: TextAlign.center,
                 decoration: const InputDecoration(
                   border: InputBorder.none,
@@ -213,13 +214,13 @@ class _CoinsSectionState extends State<CoinsSection> {
         ),
         Expanded(
           child: Container(
-            height: 30,
+            height: 24,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
             child: Text(
               NumberFormat('#,##0.00').format(result),
-              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 10),
               textAlign: TextAlign.center,
             ),
           ),
@@ -235,28 +236,27 @@ class _CoinsSectionState extends State<CoinsSection> {
       children: [
         Expanded(
           child: Container(
-            height: 30,
+            height: 24,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
             child: const Text(
               '(6)รวม/Total',
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 10),
               textAlign: TextAlign.center,
             ),
           ),
         ),
         Expanded(
           child: Container(
-            height: 30,
+            height: 24,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
             child: Center(
               child: Text(
                 NumberFormat('#,##0.00').format(totalCoins),
-                style:
-                    const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 10),
               ),
             ),
           ),
